@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<style>
+		.container {
+			margin: 10px 100px;
+		}
+	</style>
+	<title>Test Json-error-hl</title>
+</head>
+<body>
+	<div class="container">
+		<h1>Тесты</h1>
+		<link rel="stylesheet"  type="text/css" href="../../syntax-hl-fk.css">
+		<link rel="stylesheet"  type="text/css" href="../themes.css">
+		
+		
+		<pre id="pre_1" class="syntax-hl-fk calm-clarified-json-theme"></pre>
+		<script type="text/javascript" src="get-code-1.js"></script>
+		<pre id="pre_2" class="syntax-hl-fk calm-clarified-json-theme"></pre>
+		<script type="text/javascript" src="get-code-2.js"></script>
+		<pre id="pre_3" class="syntax-hl-fk calm-clarified-json-theme" data-line-num="26">
+			[
+				{
+					"td": "Доменное имя",
+					"ch": [
+						{
+							"bd": "домен 3-го уровня",
+							"td": "Хост",
+							"ch": "mail"
+						},{
+							"td": "",
+							"ch": "."
+						},{
+							"bd": "домен 2-го уровня",
+							"td": "Доменная \n зона",
+							"ch": "google"
+						},{
+							"td": "",
+							"ch": "."
+						},{
+							"bd": "домен 1-го уровня",
+							"td": "Доменная \n зона",
+							"ch": "com"
+						},{
+							"bd": "Корневой домен. \n Можно не писать.",
+							"ch": "."
+						}
+					]
+				}
+			]
+		</pre>
+		
+		<pre id="pre_4" class="syntax-hl-fk calm-clarified-json-theme" data-line-num="58">
+			[
+				{
+					"name": "phpQuery",
+					"opened": true,
+					"capt": "Бизнес дистрибутив.",
+					"ch": [
+						{
+							"name": "phpQuery",
+							"opened": true,
+							"ch": [
+								{
+									"name": "compat",
+									"opened": false,
+									"ch": true
+								},
+								{
+									"name": "plugins",
+									"opened": false,
+									,
+									"ch": true
+								},
+								{
+									"name": "Zend",
+									"opened": false},
+									"khkjh" : "",
+									"ch": true
+								},
+								{
+									"name": "bootstrap.example.php"
+								},
+								{
+									"name": "Callback.php"
+								},
+								{
+									"name": "DOMDocumentWrapper.php"
+								},
+								{
+									"name": "DOMEvent.php"
+								},
+								{
+									"name": "phpQueryEvents.php"
+								},
+								{
+									"name": "phpQueryObject.php"
+								},
+								{
+									"sdbhjb"    :
+									"jnjncj"
+								},
+							]
+						},
+						{
+							"name": "phpQuery.php",
+							"capt": "Точка подключения."
+						}
+					]
+				}
+			]
+		</pre>
+		<script type="module">
+			import jsonHl from "./describe-syntax.js";
+			jsonHl.highlightTextContent(pre_1);
+			jsonHl.scrollToFirstError  (pre_1);
+			jsonHl.highlightTextContent(pre_2);
+			jsonHl.scrollToFirstError  (pre_2);
+			jsonHl.highlightTextContent(pre_3);
+			jsonHl.scrollToFirstError  (pre_3);
+			jsonHl.highlightTextContent(pre_4);
+			jsonHl.scrollToFirstError  (pre_4);
+		</script>
+	</div>
+</body>
+</html> 
