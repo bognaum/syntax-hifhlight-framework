@@ -1,10 +1,8 @@
 import describeAPI from "./describeAPI.js";
-
-import getSyntaxHighlightAPI from "./getSyntaxHighlightAPI.js";
-
+import SyntaxHighlightAPI from "./SyntaxHighlightAPI.js";
 
 export default {
-	version: "2.0.0-alpha",
+	version: "3.0.0-alpha",
 	describeAPI,
-	getSyntaxHighlightAPI, // (mainRule, clPref="syntax-hl-fk")
+	SyntaxHighlightAPI, // (mainRule, clPref="syntax-hl-fk")
 };

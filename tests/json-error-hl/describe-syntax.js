@@ -114,4 +114,4 @@ const
 		}),
 	};
 
-export default SyntaxHlFk.getSyntaxHighlightAPI(__main_);
+export default new SyntaxHlFk.SyntaxHighlightAPI(__main_);

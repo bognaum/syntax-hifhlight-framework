@@ -1,5 +1,6 @@
 import ParseContext from "./ParseContext.js";
-export default function getSyntaxHighlightAPI (mainRule, clPref="syntax-hl-fk") {
+
+export default function SyntaxHighlightAPI (mainRule, clPref="syntax-hl-fk") {
 
 	return {
 		highlight,            // (contentEl, text, firstLineNum=1)
