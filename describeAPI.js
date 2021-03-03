@@ -1,7 +1,4 @@
-import ParseContext from "./ParseContext.js";
-
-export {
-	ParseContext,
+export  default {
 	seq,
 	alter,
 	q,
@@ -193,9 +190,6 @@ function deb(callb, a=0, b=0) {
 	insertProto(Analyzer_proto, _deb_);
 	return _deb_;
 }
-
-
-
 
 function insertProto(proto, ob) {
 	return Object.setPrototypeOf(ob, Object.setPrototypeOf(proto, Object.getPrototypeOf(ob)));
