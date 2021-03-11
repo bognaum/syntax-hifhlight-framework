@@ -1,0 +1,90 @@
+.colors .violet {
+  color: #98f;
+}
+.colors .blue {
+  color: #9be;
+}
+.colors .blue {
+  color: #3bd;
+}
+.colors .blue {
+  color: #6bc;
+}
+.colors .green-blue {
+  color: #3db;
+}
+.colors .red {
+  color: #e48;
+}
+.colors .blue {
+  color: #ddd;
+}
+.colors .green {
+  color: #393;
+}
+.colors .l-brown {
+  color: #da5;
+}
+.colors .l-green {
+  color: #ac6;
+}
+.colors .l-green {
+  color: #8d1;
+}
+.colors .gray {
+  color: #888;
+}
+
+.syntax-hl-fk__line-text .f_name {
+  color: #8d1;
+}
+.syntax-hl-fk__line-text .f_name {
+  color: #3bd;
+}
+.syntax-hl-fk__line-text .comment {
+  color: #888;
+}
+.syntax-hl-fk__line-text .string {
+  color: #da5;
+}
+.syntax-hl-fk__line-text .re {
+  color: #da5;
+}
+.syntax-hl-fk__line-text .slashed {
+  color: #98f;
+}
+.syntax-hl-fk__line-text .number {
+  color: #98f;
+}
+.syntax-hl-fk__line-text .bool {
+  color: #98f;
+}
+.syntax-hl-fk__line-text .sp_const {
+  color: #98f;
+}
+.syntax-hl-fk__line-text .keyword {
+  color: #e48;
+}
+.syntax-hl-fk__line-text .operator {
+  color: #3db;
+}
+.syntax-hl-fk__line-text .punctuation {
+  color: #3db;
+}
+.syntax-hl-fk__line-text .paren {
+  color: #3db;
+}
+.syntax-hl-fk__line-text .curly {
+  color: #3db;
+}
+.syntax-hl-fk__line-text .bracket {
+  color: #3db;
+}
+.syntax-hl-fk__line-text .word {
+  color: #eee;
+}
+.syntax-hl-fk__line-text .string_tag {
+  color: #eee;
+}
+
+/*# sourceMappingURL=style.css.map */

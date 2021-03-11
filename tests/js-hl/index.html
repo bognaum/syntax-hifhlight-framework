@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link rel="stylesheet" href="style.css"/>
+	<style>
+		.container {
+			margin: 10px 100px;
+		}
+	</style>
+	<title>Test Js-hl</title>
+</head>
+<body>
+	<div class="container">
+		<h1>Тесты</h1>
+		<link rel="stylesheet"  type="text/css" href="../../syntax-hl-fk.css">
+		<link rel="stylesheet"  type="text/css" href="../themes.css">
+		
+		<pre id="pre_1" class="syntax-hl-fk calm-clarified-theme"></pre>
+		<pre id="pre_2" class="syntax-hl-fk monokai-theme"></pre>
+		<pre id="pre_3" class="syntax-hl-fk" data-line-num="21">
+			[
+				{
+					"td": "Доменное имя",
+					"ch": [
+						{
+							"bd": "домен 3-го уровня",
+							"td": "Хост",
+							"ch": "mail"
+						},{
+							"td": "",
+							"ch": "."
+						},{
+							"bd": "домен 2-го уровня",
+							"td": "Доменная \n зона",
+							"ch": "google"
+						},{
+							"td": "",
+							"ch": "."
+						},{
+							"bd": "домен 1-го уровня",
+							"td": "Доменная \n зона",
+							"ch": "com"
+						},{
+							"bd": "Корневой домен. \n Можно не писать.",
+							"ch": "."
+						}
+					]
+				}
+			]
+		</pre>
+		<pre id="pre_4" class="syntax-hl-fk" data-line-num="52">
+			[
+				{
+					"name": "phpQuery",
+					"opened": true,
+					"capt": "Бизнес дистрибутив.",
+					"ch": [
+						{
+							"name": "phpQuery",
+							"opened": true,
+							"ch": [
+								{
+									"name": "compat",
+									"opened": false,
+									"ch": true
+								},
+								{
+									"name": "plugins",
+									"opened": false,
+									"ch": true
+								},
+								{
+									"name": "Zend",
+									"opened": false   ,
+									"khkjh" : "",
+									"ch": true
+								},
+								{
+									"name": "bootstrap.example.php"
+								},
+								{
+									"name": "Callback.php"
+								},
+								{
+									"name": "DOMDocumentWrapper.php"
+								},
+								{
+									"name": "DOMEvent.php"
+								},
+								{
+									"name": "phpQueryEvents.php"
+								},
+								{
+									"name": "phpQueryObject.php"
+								},
+								{
+									"sdbhjb"    :
+									"jnjncj"
+								},
+							]
+						},
+						{
+							"name": "phpQuery.php",
+							"capt": "Точка подключения."
+						}
+					]
+				}
+			]
+		</pre>
+
+		<pre id="pre_5" class="syntax-hl-fk" data-line-num="1"></pre>
+		<script type="text/javascript" src="get-code-1.js"></script>
+		<script type="module">
+			import jsHl from "./describe-syntax.js"
+
+			fetch("../../describeAPI.js")
+			.then((res) => res.text())
+			.then((text) => jsHl.highlight(pre_1, text));
+
+			fetch("describe-syntax.js")
+			.then((res) => res.text())
+			.then((text) => jsHl.highlight(pre_2, text));
+			
+			jsHl.highlightTextContent(pre_3);
+			jsHl.highlightTextContent(pre_4);
+			jsHl.highlightTextContent(pre_5);
+		</script>
+	</div>
+</body>
+</html> 
