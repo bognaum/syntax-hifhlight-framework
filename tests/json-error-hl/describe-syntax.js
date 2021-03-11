@@ -1,4 +1,4 @@
-import SyntaxHlFk from "../../syntax-hl-fk.js"
+import SyntaxHlFk from "../../index.js"
 
 const {
 	seq,
