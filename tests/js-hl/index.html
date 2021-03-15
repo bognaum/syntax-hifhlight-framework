@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<link rel="stylesheet" href="style.css"/>
 	<style>
 		.container {
 			margin: 10px 100px;
@@ -13,8 +12,6 @@
 <body>
 	<div class="container">
 		<h1>Тесты</h1>
-		<link rel="stylesheet"  type="text/css" href="../../syntax-hl-fk.css">
-		<link rel="stylesheet"  type="text/css" href="../themes.css">
 		
 		<pre id="pre_1" class="syntax-hl-fk calm-clarified-theme"></pre>
 		<pre id="pre_2" class="syntax-hl-fk monokai-theme"></pre>
@@ -112,7 +109,7 @@
 		<pre id="pre_5" class="syntax-hl-fk" data-line-num="1"></pre>
 		<script type="text/javascript" src="get-code-1.js"></script>
 		<script type="module">
-			import jsHl from "./describe-syntax.js"
+			import jsHl from "./bundle-describe-syntax.js"
 
 			fetch("../../describeAPI.js")
 			.then((res) => res.text())

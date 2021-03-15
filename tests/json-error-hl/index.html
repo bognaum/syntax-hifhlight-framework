@@ -12,8 +12,6 @@
 <body>
 	<div class="container">
 		<h1>Тесты</h1>
-		<link rel="stylesheet"  type="text/css" href="../../syntax-hl-fk.css">
-		<link rel="stylesheet"  type="text/css" href="../themes.css">
 		
 		<pre id="pre_1" class="syntax-hl-fk calm-clarified-json-theme"></pre>
 		<script type="text/javascript" src="get-code-1.js"></script>
@@ -112,7 +110,7 @@
 			]
 		</pre>
 		<script type="module">
-			import jsonHl from "./describe-syntax.js";
+			import jsonHl from "./bundle-describe-syntax.js";
 			jsonHl.highlightTextContent(pre_1);
 			jsonHl.scrollToFirstError  (pre_1);
 			jsonHl.highlightTextContent(pre_2);
