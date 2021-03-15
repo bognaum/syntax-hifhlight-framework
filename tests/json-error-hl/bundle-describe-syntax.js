@@ -21,14 +21,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _describeAPI_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
-/* harmony import */ var _SyntaxHighlightAPI_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
+/* harmony import */ var _HighlightAPI_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
 	version: "3.0.0-alpha",
 	describeAPI: _describeAPI_js__WEBPACK_IMPORTED_MODULE_0__.default,
-	SyntaxHighlightAPI: _SyntaxHighlightAPI_js__WEBPACK_IMPORTED_MODULE_1__.default, // (mainRule, clPref="syntax-hl-fk")
+	HighlightAPI: _HighlightAPI_js__WEBPACK_IMPORTED_MODULE_1__.default, // (mainRule, clPref="syntax-hl-fk")
 });
 
 /***/ }),
@@ -253,12 +253,12 @@ function chekToAnaliser(fn) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ SyntaxHighlightAPI)
+/* harmony export */   "default": () => (/* binding */ HighlightAPI)
 /* harmony export */ });
 /* harmony import */ var _ParseContext_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
 
 
-function SyntaxHighlightAPI (mainRule, clPref="syntax-hl-fk") {
+function HighlightAPI (mainRule, clPref="syntax-hl-fk") {
 
 	return {
 		highlight,            // (contentEl, text, firstLineNum=1)
@@ -1238,7 +1238,7 @@ const
 		}),
 	};
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new _index_js__WEBPACK_IMPORTED_MODULE_0__.default.SyntaxHighlightAPI(__main_));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new _index_js__WEBPACK_IMPORTED_MODULE_0__.default.HighlightAPI(__main_));
 })();
 
 var __webpack_exports__default = __webpack_exports__.default;
