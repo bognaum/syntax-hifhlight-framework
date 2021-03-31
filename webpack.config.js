@@ -3,12 +3,12 @@ const path = require('path');
 module.exports = {
 	context: path.resolve(__dirname, 'tests'),
 	entry: {
-		'json-error-hl': './json-error-hl/describe-syntax.js',
-		'js-hl': './js-hl/describe-syntax.js',
+		'json-error-hl': './json-error-hl/style.js',
+		'js-hl': './js-hl/style.js',
 	},
 	output: {
 		path: path.resolve(__dirname, 'tests'),
-		filename: '[name]/bundle-describe-syntax.js',
+		filename: '[name]/bundle-style.js',
 		library: {type: "module"}
 	},
 	experiments: {

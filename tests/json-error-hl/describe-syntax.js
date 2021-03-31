@@ -1,7 +1,7 @@
 import SyntaxHlFk from "../../index.js"
 
-import "./../../syntax-hl-fk.scss";
-import "./../themes.scss";
+// import "./../../syntax-hl-fk.scss";
+// import "./../themes.scss";
 
 const {
 	seq,
