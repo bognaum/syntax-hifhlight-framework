@@ -11,7 +11,7 @@ pre.#{$pref} {
 	font-family: consolas, monospace;
 	*::selection {
 		background-color: #000;
-		background-color: #7777;
+		background-color: rgba(120, 120, 120, .5);
 	}
 
 	.#{$pref}__line {
