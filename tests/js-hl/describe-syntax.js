@@ -150,4 +150,4 @@ const
 		}),
 	};
 
-export default new SyntaxHlFk.HighlightAPI(r.main);
+export default new SyntaxHlFk.Highlighter(r.main);

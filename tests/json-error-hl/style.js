@@ -1,2 +1,2 @@
-import "./../../syntax-hl-fk.scss";
+import "./../../highlighter.scss";
 import "./../themes.scss";
