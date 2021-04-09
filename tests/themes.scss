@@ -36,7 +36,7 @@ pre.#{$pref}.calm-theme {
 }
 
 pre.#{$pref}.calm-clarified-theme {
-	.#{$pref}__line-number {
+	.#{$pref}__line .#{$pref}__line-number {
 		background-color: #444;
 		// border-right: 3px solid #ccc;
 	}
@@ -69,7 +69,7 @@ pre.#{$pref}.calm-clarified-theme {
 }
 
 pre.#{$pref}.calm-clarified-json-theme {
-	.#{$pref}__line-number {
+	.#{$pref}__line .#{$pref}__line-number {
 		background-color: #444;
 		// border-right: 3px solid #ccc;
 	}
