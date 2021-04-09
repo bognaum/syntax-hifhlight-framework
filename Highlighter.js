@@ -142,8 +142,8 @@ export default function HighlightAPI (mainRule, clPref="syntax-hl-fk") {
 	}
 
 	function setCSS() {
-		const style = evaluate(`<style class="${clPref}__base-style"></style>`);
-		style.textContent = [
+		
+		const cssCode = [
 			`pre.${clPref} {                                                 `,
 			`    background-color: #444;                                     `,
 			`    color: #ccc;                                                `,
@@ -190,7 +190,19 @@ export default function HighlightAPI (mainRule, clPref="syntax-hl-fk") {
 			`    margin-left: -20px;                                         `,
 			`}                                                               `,
 		].join("\n");
-		document.head.appendChild(style);
+
+		const styleClassName = `${clPref}__base-style`;
+
+		const styleAlreadyExists = [].some.call(
+			document.querySelectorAll(`style.${styleClassName}`), 
+			(v) => v.textContent === cssCode
+		);
+
+		if (! styleAlreadyExists) {
+			const style = evaluate(`<style class="${styleClassName}"></style>`);
+			style.textContent = cssCode;
+			document.head.appendChild(style);
+		}
 	}
 
 	function evaluate (code) {
