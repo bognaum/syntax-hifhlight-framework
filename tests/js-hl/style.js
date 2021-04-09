@@ -1,2 +1,2 @@
-import "./../../highlighter.scss";
+// import "./../../highlighter.scss";
 import "./../themes.scss";
