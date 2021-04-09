@@ -1,0 +1,38 @@
+pre.syntax-hl-fk {
+  background-color: #444;
+  color: #ccc;
+  -moz-tab-size: 4;
+  tab-size: 4;
+  overflow: auto;
+  max-height: 500px;
+  padding: 20px;
+  font-family: consolas, monospace; }
+  pre.syntax-hl-fk *::selection {
+    background-color: #000;
+    background-color: rgba(120, 120, 120, 0.5); }
+  pre.syntax-hl-fk .syntax-hl-fk__line {
+    margin-left: -20px; }
+    pre.syntax-hl-fk .syntax-hl-fk__line > * {
+      display: table-cell; }
+    pre.syntax-hl-fk .syntax-hl-fk__line .syntax-hl-fk__line-number {
+      width: 50px;
+      min-width: 50px;
+      max-width: 50px;
+      text-align: right;
+      background-color: #333;
+      padding-right: 10px;
+      margin-right: 5px;
+      transition: all .2s; }
+      pre.syntax-hl-fk .syntax-hl-fk__line .syntax-hl-fk__line-number:before {
+        content: attr(data-line-number) ""; }
+    pre.syntax-hl-fk .syntax-hl-fk__line .syntax-hl-fk__line-indent {
+      padding-left: 5px; }
+    pre.syntax-hl-fk .syntax-hl-fk__line .syntax-hl-fk__line-text {
+      padding-left: 20px;
+      white-space: pre-wrap;
+      word-break: break-word; }
+      pre.syntax-hl-fk .syntax-hl-fk__line .syntax-hl-fk__line-text:before {
+        content: "";
+        margin-left: -20px; }
+
+/*# sourceMappingURL=highlighter.css.map */
