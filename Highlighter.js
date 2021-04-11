@@ -27,12 +27,15 @@ export default function HighlightAPI (mainRule, clPref="syntax-hl-fk") {
 	}
 
 	function highlight(contentEl, text, firstLineNum=1) {
+		contentEl.classList.add("executing");
 		contentEl.innerHTML = "";
 		try {
 			const
 				model    = buildModel(text),
 				contents = renderToHighlight(model, firstLineNum);
 			contents.forEach((lineOb) => lineOb.appendTo(contentEl));
+			contentEl.classList.remove("executing");
+			contentEl.classList.add("executed");
 		} catch (e) {
 			console.error(`(!)-CATCHED`, e);
 			const lines = text.split("\n");
@@ -44,6 +47,8 @@ export default function HighlightAPI (mainRule, clPref="syntax-hl-fk") {
 					lineOb.setEol();
 				lineOb.appendTo(contentEl);
 			});
+			contentEl.classList.remove("executing");
+			contentEl.classList.add("exec-error");
 		}
 	}
 
