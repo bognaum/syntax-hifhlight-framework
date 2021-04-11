@@ -27,6 +27,9 @@ export default function HighlightAPI (mainRule, clPref="syntax-hl-fk") {
 	}
 
 	function highlight(contentEl, text, firstLineNum=1) {
+		if (["executing", "executed", "exec-error"].some((v) => contentEl.classList.contains(v)))
+			throw new Error("(!) Highlighter. Already handled.", contentEl);
+		
 		contentEl.classList.add("executing");
 		contentEl.innerHTML = "";
 		try {
