@@ -1,6 +1,7 @@
 $pref : "syntax-hl-fk";
-pre.#{$pref} {
+.#{$pref} {
 	text-align: left;
+	white-space: pre;
 	background-color: #444;
 	color: #ccc;
 	-moz-tab-size: 4;
