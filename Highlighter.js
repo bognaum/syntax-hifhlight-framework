@@ -151,53 +151,45 @@ export default function HighlightAPI (mainRule, clPref="syntax-hl-fk") {
 
 	function setCSS() {
 		
-		const cssCode = [
-			`pre.${clPref} {                                                 `,
-			`    background-color: #444;                                     `,
-			`    color: #ccc;                                                `,
-			`    -moz-tab-size: 4;                                           `,
-			`    tab-size: 4;                                                `,
-			`    overflow: auto;                                             `,
-			`    max-height: 500px;                                          `,
-			`    padding: 20px;                                              `,
-			`    font-family: consolas, monospace;                           `,
-			`}                                                               `,
-			`pre.${clPref} *::selection {                                    `,
-			`    background-color: #000;                                     `,
-			`    background-color: rgba(120, 120, 120, 0.5);                 `,
-			`}                                                               `,
-			`pre.${clPref} .${clPref}__line {                                `,
-			`    margin-left: -20px;                                         `,
-			`}                                                               `,
-			`pre.${clPref} .${clPref}__line > * {                            `,
-			`    display: table-cell;                                        `,
-			`}                                                               `,
-			`pre.${clPref} .${clPref}__line .${clPref}__line-number {        `,
-			`    width: 50px;                                                `,
-			`    min-width: 50px;                                            `,
-			`    max-width: 50px;                                            `,
-			`    text-align: right;                                          `,
-			`    background-color: #333;                                     `,
-			`    padding-right: 10px;                                        `,
-			`    margin-right: 5px;                                          `,
-			`    transition: all .2s;                                        `,
-			`}                                                               `,
-			`pre.${clPref} .${clPref}__line .${clPref}__line-number:before { `,
-			`    content: attr(data-line-number) "";                         `,
-			`}                                                               `,
-			`pre.${clPref} .${clPref}__line .${clPref}__line-indent {        `,
-			`    padding-left: 5px;                                          `,
-			`}                                                               `,
-			`pre.${clPref} .${clPref}__line .${clPref}__line-text {          `,
-			`    padding-left: 20px;                                         `,
-			`    white-space: pre-wrap;                                      `,
-			`    word-break: break-word;                                     `,
-			`}                                                               `,
-			`pre.${clPref} .${clPref}__line .${clPref}__line-text:before {   `,
-			`    content: "";                                                `,
-			`    margin-left: -20px;                                         `,
-			`}                                                               `,
-		].join("\n");
+		const cssCode = `
+			pre.${clPref} {
+			  text-align: left;
+			  background-color: #444;
+			  color: #ccc;
+			  -moz-tab-size: 4;
+			  tab-size: 4;
+			  overflow: auto;
+			  max-height: 500px;
+			  padding: 20px;
+			  font-family: consolas, monospace; }
+			  pre.${clPref} *::selection {
+			    background-color: #000;
+			    background-color: rgba(120, 120, 120, 0.5); }
+			  pre.${clPref} .${clPref}__line {
+			    margin-left: -20px; }
+			    pre.${clPref} .${clPref}__line > * {
+			      display: table-cell; }
+			    pre.${clPref} .${clPref}__line .${clPref}__line-number {
+			      width: 50px;
+			      min-width: 50px;
+			      max-width: 50px;
+			      text-align: right;
+			      background-color: #333;
+			      padding-right: 10px;
+			      margin-right: 5px;
+			      transition: all .2s; }
+			      pre.${clPref} .${clPref}__line .${clPref}__line-number:before {
+			        content: attr(data-line-number) ""; }
+			    pre.${clPref} .${clPref}__line .${clPref}__line-indent {
+			      padding-left: 5px; }
+			    pre.${clPref} .${clPref}__line .${clPref}__line-text {
+			      padding-left: 20px;
+			      white-space: pre-wrap;
+			      word-break: break-word; }
+			      pre.${clPref} .${clPref}__line .${clPref}__line-text:before {
+			        content: "";
+			        margin-left: -20px; }
+		`;
 
 		const styleClassName = `${clPref}__base-style`;
 
