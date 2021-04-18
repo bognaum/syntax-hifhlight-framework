@@ -71,7 +71,7 @@ export default class ParseContext {
 	acceptChildHypo (hpc) {
 		this.i = this.i1 = hpc.i;
 		push(this.mSlot, hpc.selfMN);
-		hpc.selfMN.i1 = hpc.i - 1;
+		hpc.selfMN.i1 = hpc.i;
 		if (hpc.msg)
 			hpc.selfMN.msg = hpc.msg;
 		hpc.selfMN = null;
