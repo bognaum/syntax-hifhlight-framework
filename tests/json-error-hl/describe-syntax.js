@@ -109,7 +109,7 @@ const
 		}),
 		string        : rule(function(pc) {
 			return pc.match('"')
-				&& q(pc => d.slashed(pc) || pc.notMatch('"'), "*")(pc) 
+				&& q(pc => d.slashed(pc) || not(token('"'))(pc), "*")(pc) 
 				&& pc.match('"');
 		}),
 		space           : rule(function(pc) {

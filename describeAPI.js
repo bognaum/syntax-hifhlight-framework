@@ -122,7 +122,7 @@ function q(callb, quanto, callb2=null) {
 
 function not(callb) {
 	const _not_ = function _not_(pc) {
-		const hpc = pc.createHypothesis();
+		const hpc = pc.createHypo();
 		const res = callb(hpc);
 		if (! res) {
 			pc.match(pc.text[pc.i]);
