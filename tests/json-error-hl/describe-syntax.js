@@ -54,7 +54,7 @@ const
 			return false;
 	}),
 	err = domain("error", function(pc) {
-		return pc.match(/\s*.*/y);
+		return token(/\s*.*/y)(pc);
 	}),
 	d = {
 		string_v : domain("string_v" , function(pc) {
@@ -64,16 +64,16 @@ const
 			return r.string(pc);
 		}),
 		slashed : domain("slashed", function(pc) {
-			return pc.match(/\\[\\ntbu'"`]/y);
+			return token(/\\[\\ntbu'"`]/y)(pc);
 		}),
 		number          : domain("number", function(pc) {
-			return pc.match(/\b\d+\.|\.\d+\b|\b\d+\.?\d*\b/y);
+			return token(/\b\d+\.|\.\d+\b|\b\d+\.?\d*\b/y)(pc);
 		}),
 		bool            : domain("bool", function(pc) {
-			return pc.match(/\btrue\b|\bfalse\b/y);
+			return token(/\btrue\b|\bfalse\b/y)(pc);
 		}),
 		_null           : domain("_null", function(pc) {
-			return pc.match(/\bnull\b/y);
+			return token(/\bnull\b/y)(pc);
 		}),
 	},
 	r = {
@@ -108,12 +108,14 @@ const
 			return seq(r.space.q("*"), token("}"))(pc);
 		}),
 		string        : rule(function(pc) {
-			return pc.match('"')
-				&& q(pc => d.slashed(pc) || not(token('"'))(pc), "*")(pc) 
-				&& pc.match('"');
+			return seq(
+				token('"'),
+				q(alter(d.slashed, not(token('"'))), "*"),
+				token('"'),
+			)(pc);
 		}),
 		space           : rule(function(pc) {
-			return pc.match(/\s+/y);
+			return token(/\s+/y)(pc);
 		}),
 	};
 
