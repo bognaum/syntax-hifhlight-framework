@@ -15,20 +15,7 @@ export default class ParseContext {
 		// this.debugDomain = pc.debugDomain;
 	}
 	match (templ) {
-		let mSubstr = "", len;
-		if (typeof templ == "string") {
-			len = templ.length;
-			const substr = this.text.substr(this.i, len);
-			if (substr === templ)
-				mSubstr = substr;
-			
-		} else if (templ instanceof RegExp) {
-			templ.lastIndex = this.i;
-			const mOb    = this.text.match(templ);
-			mSubstr =  mOb && mOb[0] || "";
-			len = mSubstr.length;
-
-		}
+		const {mSubstr, len} = this._getMatchSubstr(templ);
 
 		if (mSubstr) {
 			this.i += len;
@@ -39,6 +26,19 @@ export default class ParseContext {
 			return "";
 	}
 	notMatch (templ) {
+		const {mSubstr, len} = this._getMatchSubstr(templ);
+
+		if (mSubstr) {
+			return false;
+		} else {
+			const simbol = this.text[this.i];
+			push(this.mSlot, simbol);
+			this.i += 1;
+			this.monitor = this.i+ " : "+this.text.substr(this.i, 20);
+			return simbol;
+		}
+
+
 		const hpc = this.createHypo();
 		if (! hpc.match(templ)) {
 			this.match(this.text[this.i]);
@@ -76,6 +76,23 @@ export default class ParseContext {
 			hpc.selfMN.msg = hpc.msg;
 		hpc.selfMN = null;
 		return true;
+	}
+	_getMatchSubstr (templ) {
+		let mSubstr = "", len;
+		if (typeof templ == "string") {
+			len = templ.length;
+			const substr = this.text.substr(this.i, len);
+			if (substr === templ)
+				mSubstr = substr;
+			
+		} else if (templ instanceof RegExp) {
+			templ.lastIndex = this.i;
+			const mOb    = this.text.match(templ);
+			mSubstr =  mOb && mOb[0] || "";
+			len = mSubstr.length;
+		}
+
+		return {mSubstr, len};
 	}
 }
 

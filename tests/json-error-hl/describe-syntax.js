@@ -11,6 +11,7 @@ const {
 	domain,
 	rule,
 	token,
+	nToken,
 	deb,
 } = SyntaxHlFk.describeAPI;
 
@@ -110,7 +111,7 @@ const
 		string        : rule(function(pc) {
 			return seq(
 				token('"'),
-				q(alter(d.slashed, not(token('"'))), "*"),
+				q(alter(d.slashed, nToken('"')), "*"),
 				token('"'),
 			)(pc);
 		}),

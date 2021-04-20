@@ -11,6 +11,7 @@ const {
 	domain,
 	rule,
 	token,
+	nToken,
 	deb,
 } = SyntaxHlFk.describeAPI;
 
@@ -133,34 +134,34 @@ const
 		comment_line    : rule(function(pc) {
 			return seq(
 				token("//"),
-				not(token("\n")).q("*"),
+				nToken("\n").q("*"),
 			)(pc);
 		}),
 		comment_snippet : rule(function(pc) {
 			return seq(
 				token("/*"),
-				not(token("*/")).q("*"),
+				nToken("*/").q("*"),
 				token("*/"),
 			)(pc);
 		}),
 		string_single   : rule(function(pc) {
 			return seq(
 				token("'"),
-				alter(d.slashed, not(token("'"))).q("*"),
+				alter(d.slashed, nToken("'")).q("*"),
 				token("'"),
 			)(pc);
 		}),
 		string_dowble   : rule(function(pc) {
 			return seq(
 				token('"'),
-				alter(d.slashed, not(token('"'))).q("*"),
+				alter(d.slashed, nToken('"')).q("*"),
 				token('"'),
 			)(pc);
 		}),
 		string_slash    : rule(function(pc) {
 			return seq(
 				token("`"),
-				alter(d.slashed, d.string_tag, not(token("`"))).q("*"),
+				alter(d.slashed, d.string_tag, nToken("`")).q("*"),
 				token("`"),
 			)(pc);
 		}),

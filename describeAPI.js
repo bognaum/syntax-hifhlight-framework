@@ -6,6 +6,7 @@ export  default {
 	domain,
 	rule,
 	token,
+	nToken,
 	deb,
 };
 
@@ -174,6 +175,14 @@ function token(templ) {
 	}
 	insertProto(Analyzer_proto, _token_);
 	return _token_;
+}
+
+function nToken(templ) {
+	const _notToken_ = function _notToken_(pc) {
+		return pc.notMatch(templ);
+	}
+	insertProto(Analyzer_proto, _notToken_);
+	return _notToken_;
 }
 
 function deb(callb, a=0, b=0) {
