@@ -2,6 +2,7 @@ $pref : "syntax-hl-fk";
 
 pre.#{$pref}.calm-theme {
 	background-color: #222;
+	color: #eee;
 	.#{$pref}__line-text {
 		color: #eee;
 		// .string_v    {color: #FAF4C6;}
@@ -74,7 +75,6 @@ pre.#{$pref}.calm-clarified-json-theme {
 		// border-right: 3px solid #ccc;
 	}
 	.#{$pref}__line-text {
-		color: #eee;
 		.string_v      {color: #ddc;}
 		.string_n      {color: #78a;}
 		.bool          {color: #fb6;}
@@ -89,8 +89,8 @@ pre.#{$pref}.calm-clarified-json-theme {
 
 pre.#{$pref}.monokai-theme {
 	background-color: #333;
+	color: #eee;
 	.#{$pref}__line-text {
-		// .f_name      {color: #8d1;}
 		.f_name      {color: #3bd;}
 		.comment     {color: #888;}
 		.string      {color: #da5;}
@@ -111,6 +111,7 @@ pre.#{$pref}.monokai-theme {
 }
 
 pre.#{$pref}.monokai-clarified-theme {
+	color: #eee;
 	// background-color: #333;
 	.#{$pref}__line-text {
 		// .f_name      {color: #A3C266;}
@@ -135,6 +136,7 @@ pre.#{$pref}.monokai-clarified-theme {
 }
 
 pre.#{$pref}.t1-theme {
+	color: #eee;
 	.#{$pref}__line-text {
 		// .f_name      {color: #8d1;}
 		.f_name      {color: #3bd;}
@@ -157,8 +159,8 @@ pre.#{$pref}.t1-theme {
 }
 
 pre.#{$pref}.t2-theme {
+	color: #eee;
 	.#{$pref}__line-text {
-		color: #eee;
 		.string_v    {color: #fd8;}
 		.string_n    {color: #78a;}
 		.bool        {color: #98f;}
