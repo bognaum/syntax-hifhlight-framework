@@ -17,64 +17,72 @@ const {
 const
 	d = {
 		comment : domain("comment", function(pc) {
-			return r.comment_line(pc) || r.comment_snippet(pc);
+			return alter(r.comment_line, r.comment_snippet)(pc);
 		}),
 		string  : domain("string" , function(pc) {
 			return r.string_single(pc) || r.string_dowble(pc) || r.string_slash(pc);
 		}),
 		re      : domain("re"     , function(pc) {
-			return pc.match(/\/(\\\/|[^\/\n])+\/[migy]{0,4}/y);
+			return token(/\/(\\\/|[^\/\n])+\/[migy]{0,4}/y)(pc);
 		}),
 		slashed : domain("slashed", function(pc) {
-			return pc.match(/\\[\\ntbu'"`]/y);
+			return token(/\\[\\ntbu'"`]/y)(pc);
 		}),
 		keyword : domain("keyword", function(pc) {
-			return pc.match(/\bvar\b|\blet\b|\bconst\b|\bclass\b|\bextends\b|\btypeof\b|\binstanceof\b|\bnew\b|\breturn\b|\bif\b|\belse\b|\bfor\b|\bin\b|\bof\b|\bwhile\b|\bbreak\b|\bdo\b|\bcontinue\b|\bswitch\b|\bcase\b|\bthrow\b|\byield\b|\bimport\b|\bexport\b|\bdefault\b|\bfrom\b|\bas\b/y);
+			return token(/\bvar\b|\blet\b|\bconst\b|\bclass\b|\bextends\b|\btypeof\b|\binstanceof\b|\bnew\b|\breturn\b|\bif\b|\belse\b|\bfor\b|\bin\b|\bof\b|\bwhile\b|\bbreak\b|\bdo\b|\bcontinue\b|\bswitch\b|\bcase\b|\bthrow\b|\byield\b|\bimport\b|\bexport\b|\bdefault\b|\bfrom\b|\bas\b/y)(pc);
 		}),
 		string_tag      : domain("string_tag", function(pc) {
-			return pc.match("${")
-				// && q(pc => pc.notMatch("}"), "*")(pc)
-				// && domain("s_t_content", q(r.main_inner, "*"))(pc)
-				&& q(r.main_inner, "*")(pc)
-				&& pc.match("}");
+			return seq(
+				token("${"),
+				r.main_inner.q("*"),
+				token("}"),
+			)(pc);
 		}),
 		word          : domain("word", function(pc) {
-			return pc.match(/\b[a-zA-Z_$][0-9a-zA-Z_$]*\b/y);
+			return token(/\b[a-zA-Z_$][0-9a-zA-Z_$]*\b/y)(pc);
 		}),
 		operator        : domain("operator", function(pc) {
-			return pc.match(/\?\.|\?|=>|!|%|&&|&|\*|-|\+|=|\|\||\||:|<|>/y);
+			return token(/\?\.|\?|=>|!|%|&&|&|\*|-|\+|=|\|\||\||:|<|>/y)(pc);
 		}),
 		punctuation     : domain("punctuation", function(pc) {
-			return pc.match(/\.|,|;/y);
+			return token(/\.|,|;/y)(pc);
 		}),
 		number          : domain("number", function(pc) {
-			return pc.match(/\b\d+\.|\.\d+\b|\b\d+\.?\d*\b/y);
+			return token(/\b\d+\.|\.\d+\b|\b\d+\.?\d*\b/y)(pc);
 		}),
 		bool            : domain("bool", function(pc) {
-			return pc.match(/\btrue\b|\bfalse\b/y);
+			return token(/\btrue\b|\bfalse\b/y)(pc);
 		}),
 		sp_const        : domain("sp_const", function(pc) {
-			return pc.match(/\bundefined\b|\bnull\b|\bInfinity\b/y);
+			return token(/\bundefined\b|\bnull\b|\bInfinity\b/y)(pc);
 		}),
 		paren           : domain("paren", function(pc) {
-			return pc.match("(")
-				&& q(pc => r.main_inner(pc), "*")(pc)
-				&& pc.match(")");
+			return seq(
+				token("("),
+				r.main_inner.q("*"),
+				token(")"),
+			)(pc);
 		}),
 		curly           : domain("curly", function(pc) {
-			return pc.match("{")
-				&& q(pc => r.main_inner(pc), "*")(pc)
-				&& pc.match("}");
+			return seq(
+				token("{"),
+				r.main_inner.q("*"),
+				token("}"),
+			)(pc);
 		}),
 		bracket         : domain("bracket", function(pc) {
-			return pc.match("[")
-				&& q(pc => r.main_inner(pc), "*")(pc)
-				&& pc.match("]");
+			return seq(
+				token("["),
+				r.main_inner.q("*"),
+				token("]"),
+			)(pc);
 		}),
 		f_sign          : domain("f_sign", function(pc) {
-			return d.word.as("f_name")(pc)
-				&& q(pc => r.space(pc), "*")(pc)
-				&& d.paren(pc);
+			return seq(
+				d.word.as("f_name"),
+				r.space.q("*"),
+				d.paren,
+			)(pc);
 		}),
 		f_decl          : domain("f_decl", function(pc) {
 			return seq(
@@ -92,61 +100,69 @@ const
 	},
 	r = {
 		main            : rule(function(pc) {
-			return q(
-				pc => {
-					return r.main_inner(pc)
-						|| r.simple(pc);
-				},
-				"*"
-			)(pc);
+			return q( 
+				alter(r.main_inner, r.simple), 
+			"*" )(pc);
 		}),
 		main_inner       : rule(function(pc) {
-			return r.space(pc)
-				|| d.keyword(pc)
-				|| d.operator(pc)
-				|| d.f_decl(pc)
-				|| d.f_sign(pc)
-				|| d.bool(pc)
-				|| d.sp_const(pc)
-				|| d.word(pc)
-				|| d.paren(pc)
-				|| d.curly(pc)
-				|| d.bracket(pc)
-				|| d.number(pc)
-				|| d.punctuation(pc)
-				|| d.comment(pc)
-				|| d.string(pc)
-				|| d.re(pc);
+			return alter(
+				r.space,
+				d.keyword,
+				d.operator,
+				d.f_decl,
+				d.f_sign,
+				d.bool,
+				d.sp_const,
+				d.word,
+				d.paren,
+				d.curly,
+				d.bracket,
+				d.number,
+				d.punctuation,
+				d.comment,
+				d.string,
+				d.re,
+			)(pc);
 		}),
 		space           : rule(function(pc) {
-			return pc.match(/\s+/y);
+			return token(/\s+/y)(pc);
 		}),
 		simple          : rule(function(pc) {
-			return pc.match(/./y);
+			return token(/./y)(pc);
 		}),
 		comment_line    : rule(function(pc) {
-			return pc.match("//")
-				&& q(pc => pc.notMatch("\n"), "*")(pc);
+			return seq(
+				token("//"),
+				not(token("\n")).q("*"),
+			)(pc);
 		}),
 		comment_snippet : rule(function(pc) {
-			return pc.match("/*")
-				&& q(pc => pc.notMatch("*/"), "*")(pc)
-				&& pc.match("*/");
+			return seq(
+				token("/*"),
+				not(token("*/")).q("*"),
+				token("*/"),
+			)(pc);
 		}),
 		string_single   : rule(function(pc) {
-			return pc.match("'")
-				&& q(pc => d.slashed(pc) || pc.notMatch("'"), "*")(pc) 
-				&& pc.match("'");
+			return seq(
+				token("'"),
+				alter(d.slashed, not(token("'"))).q("*"),
+				token("'"),
+			)(pc);
 		}),
 		string_dowble   : rule(function(pc) {
-			return pc.match('"')
-				&& q(pc => d.slashed(pc) || pc.notMatch('"'), "*")(pc) 
-				&& pc.match('"');
+			return seq(
+				token('"'),
+				alter(d.slashed, not(token('"'))).q("*"),
+				token('"'),
+			)(pc);
 		}),
 		string_slash    : rule(function(pc) {
-			return pc.match("`")
-				&& q(pc => d.slashed(pc) || d.string_tag(pc) || pc.notMatch("`"), "*")(pc) 
-				&& pc.match("`");
+			return seq(
+				token("`"),
+				alter(d.slashed, d.string_tag, not(token("`"))).q("*"),
+				token("`"),
+			)(pc);
 		}),
 	};
 
