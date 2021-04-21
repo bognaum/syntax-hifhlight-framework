@@ -19,20 +19,20 @@ const
 	__main_ = rule(function(pc) {
 		return seq(
 			r.space.q("*"),
-			alter(
-				r.subject,
-				err.msg("expected subject")
-			),
+			r.subject.or(err.msg("expected subject")),
 			r.space.q("*"),
 			err.msg("unwanted symbol after end of code").q("*"),
 		)(pc);
 	}),
 	list = rule(function(pc) {
 		if (token("[").in("list__open")(pc)) {
-			r.space.q("*")(pc);
-			r.subject.q("*/", r.coma_sep.in("list__coma"))(pc);
-			r.space.q("*")(pc);
-			token("]").in("list__close").or(err.msg("expected closing bracket ' ] ' or coma ' , '"))(pc);
+			seq(
+				r.space.q("*"),
+				r.subject.q("*/", r.coma_sep.in("list__coma")),
+				r.space.q("*"),
+				token("]").in("list__close")
+					.or(err.msg("expected closing bracket ' ] ' or coma ' , '")),
+			)(pc);
 			return true;
 		} else
 			return false;
