@@ -29,10 +29,11 @@ const Analyzer_proto = {
 };
 
 function seq(...callbs) {
+	for (let [k, callb] of callbs.entries())
+		chekToAnalyzer("seq", k + 1, callb);
 	function _seq_(pc) {
 		const hpc = pc.createHypo();
 		for (let [k, callb] of callbs.entries()) {
-			chekToAnaliser(callb);
 			const res = callb(hpc);
 			if (res) 
 				continue;
@@ -47,10 +48,11 @@ function seq(...callbs) {
 }
 
 function alter(...callbs) {
+	for (let [k, callb] of callbs.entries())
+		chekToAnalyzer("alter", k + 1, callb);
 	function _alter_(pc) {
 		let res;
 		for (let [k, callb] of callbs.entries()) {
-			chekToAnaliser(callb);
 			const res = callb(pc);
 			if (res)
 				return true;
@@ -62,6 +64,7 @@ function alter(...callbs) {
 }
 
 function q(callb, quanto, callb2=null) {
+	chekToAnalyzer("q", 1, callb);
 	let _q_;
 	if (quanto == "*") {
 		_q_ = function _q_zero_or_many_(pc) {
@@ -122,6 +125,7 @@ function q(callb, quanto, callb2=null) {
 }
 
 function not(callb) {
+	chekToAnalyzer("not", 1, callb);
 	const _not_ = function _not_(pc) {
 		const hpc = pc.createHypo();
 		const res = callb(hpc);
@@ -186,6 +190,7 @@ function nToken(templ) {
 }
 
 function deb(callb, a=0, b=0) {
+	chekToAnalyzer("deb", 1, callb);
 	function _deb_(pc) {
 		b = b || pc.text.length;
 		if (a <= pc.i && pc.i <= b) {
@@ -204,13 +209,10 @@ function insertProto(proto, ob) {
 	return Object.setPrototypeOf(ob, Object.setPrototypeOf(proto, Object.getPrototypeOf(ob)));
 }
 
-function chekToAnaliser(fn) {
-	if (! fn || Object.getPrototypeOf(fn) != Analyzer_proto) {
-		console.error(fn);
-		if (fn && fn.toString)
-			console.error(fn.toString());
-		debugger;
-		throw new Error("Invalid callback.");
+function chekToAnalyzer(fName, argN, callb) {
+	if (! callb || Object.getPrototypeOf(callb) != Analyzer_proto) {
+		console.error(`Argument nomber`, argN, `(from 1) of function '${fName}()' is not Analiser. There is: \n`, callb?.toString ? callb.toString() : callb);
+		throw new Error(`Invalid callback. \n Argument nomber ${argN} of function '${fName}()' is not Analiser.`);
 	} else
 		return true;
 }
