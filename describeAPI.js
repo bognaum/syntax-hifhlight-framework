@@ -7,6 +7,8 @@ export  default {
 	rule,
 	token,
 	nToken,
+	spwr,
+	tokenS,
 	deb,
 };
 
@@ -183,6 +185,22 @@ function nToken(templ) {
 	}
 	insertProto(Analyzer_proto, _notToken_);
 	return _notToken_;
+}
+
+function tokenS(templ) {
+	const _space_wrapped_token_ = function(pc) {
+		return seq(token(/\s+/y).q("*"), token(templ), token(/\s+/y).q("*"),)(pc);
+	}
+	insertProto(Analyzer_proto, _space_wrapped_token_);
+	return _space_wrapped_token_;
+}
+
+function spwr(callb) {
+	const _space_wrapped_ = function(pc) {
+		return seq(token(/\s+/y).q("*"), callb, token(/\s+/y).q("*"),)(pc);
+	}
+	insertProto(Analyzer_proto, _space_wrapped_);
+	return _space_wrapped_;
 }
 
 function deb(callb, a=0, b=0) {

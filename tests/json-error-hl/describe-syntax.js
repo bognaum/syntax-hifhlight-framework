@@ -12,6 +12,8 @@ const {
 	rule,
 	token,
 	nToken,
+	spwr,
+	tokenS,
 	deb,
 } = SyntaxHlFk.describeAPI;
 
@@ -27,9 +29,7 @@ const
 	list = rule(function(pc) {
 		if (token("[").in("list__open")(pc)) {
 			seq(
-				r.space.q("*"),
-				r.subject.q("*/", r.coma_sep.in("list__coma")),
-				r.space.q("*"),
+				spwr(r.subject.q("*/", spwr(token(",").in("list__coma")))),
 				token("]").in("list__close")
 					.or(err.msg("expected closing bracket ' ] ' or coma ' , '")),
 			)(pc);
@@ -38,16 +38,16 @@ const
 			return false;
 	}),
 	dict = rule(function(pc) {
-		if (r.curly_op(pc)) {
+		if (tokenS("{")(pc)) {
 			alter(
-				seq(r.curly_cl),
+				seq(tokenS("}")),
 				seq(
 					seq(
 						d.string_n.or(err.msg("expected string name of field")),
-						r.colon_sep.or(err.msg("expected colon ' : '")),
+						tokenS(":").or(err.msg("expected colon ' : '")),
 						r.subject.or(err.msg("expected subject - (null | boll | number | string | list | dict)"))
-					).q("*/", r.coma_sep),
-					seq(r.curly_cl).or(err.msg("expected closing curly ' } ' or coma ' , '")),
+					).q("*/", tokenS(",")),
+					tokenS("}").or(err.msg("expected closing curly ' } ' or coma ' , '")),
 				),
 			)(pc);
 			return true;
@@ -87,26 +87,6 @@ const
 				list,
 				dict
 			)(pc);
-		}),
-		coma_sep      : rule(function(pc) {
-			return seq(
-				r.space.q("*"),
-				token(","),
-				r.space.q("*"),
-				)(pc);
-		}),
-		colon_sep      : rule(function(pc) {
-			return seq(
-				r.space.q("*"),
-				token(":"),
-				r.space.q("*"),
-				)(pc);
-		}),
-		curly_op      : rule(function(pc) {
-			return seq(token("{"), r.space.q("*"))(pc);
-		}),
-		curly_cl      : rule(function(pc) {
-			return seq(r.space.q("*"), token("}"))(pc);
 		}),
 		string        : rule(function(pc) {
 			return seq(
