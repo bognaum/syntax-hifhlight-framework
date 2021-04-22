@@ -12,7 +12,7 @@ const {
 	rule,
 	token,
 	nToken,
-	spwr,
+	sWrap,
 	tokenS,
 	deb,
 } = SyntaxHlFk.describeAPI;
@@ -29,7 +29,7 @@ const
 	list = rule(function(pc) {
 		if (token("[").in("list__open")(pc)) {
 			seq(
-				spwr(r.subject.q("*/", spwr(token(",").in("list__coma")))),
+				sWrap(r.subject.q("*/", sWrap(token(",").in("list__coma")))),
 				token("]").in("list__close")
 					.or(err.msg("expected closing bracket ' ] ' or coma ' , '")),
 			)(pc);

@@ -7,7 +7,7 @@ export  default {
 	rule,
 	token,
 	nToken,
-	spwr,
+	sWrap,
 	tokenS,
 	deb,
 };
@@ -195,7 +195,7 @@ function tokenS(templ) {
 	return _space_wrapped_token_;
 }
 
-function spwr(callb) {
+function sWrap(callb) {
 	const _space_wrapped_ = function(pc) {
 		return seq(token(/\s+/y).q("*"), callb, token(/\s+/y).q("*"),)(pc);
 	}
