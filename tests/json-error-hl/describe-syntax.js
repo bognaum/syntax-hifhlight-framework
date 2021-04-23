@@ -40,7 +40,7 @@ const
 	dict = rule(function(pc) {
 		if (spToken("{")(pc)) {
 			alter(
-				seq(spToken("}")),
+				spToken("}"),
 				seq(
 					seq(
 						d.string_n.or(err.msg("expected string name of field")),
