@@ -13,16 +13,20 @@ export  default {
 };
 
 const Analyzer_proto = {
-	q : function wr_q(quanto, sepCallb=null) {
+	q : function wr_q(quanto, sepCallb=undefined) {
+		if (quanto == "*/" || quanto == "+/")
+			chekToAnalyzer("analyzer.q", 2, sepCallb);
 		return q(this, quanto, sepCallb);
 	},
 	in : function wr_inDomainin(name) {
 		return domain(name, this);
 	},
 	and : function wr_and(callb) {
+		chekToAnalyzer("q", 1, callb);
 		return seq(this, callb);
 	},
 	or : function wr_or(callb) {
+		chekToAnalyzer("q", 1, callb);
 		return alter(this, callb);
 	},
 	deb : function wr_deb(i0=0, i1=0) {
@@ -65,7 +69,7 @@ function alter(...callbs) {
 	return _alter_;
 }
 
-function q(callb, quanto, callb2=null) {
+function q(callb, quanto, callb2=undefined) {
 	chekToAnalyzer("q", 1, callb);
 	let _q_;
 	if (quanto == "*") {
@@ -104,6 +108,7 @@ function q(callb, quanto, callb2=null) {
 			return callb(pc) || true;
 		}
 	} else if (quanto == "*/") {
+		chekToAnalyzer("q", 3, callb2);
 		_q_ = function _q_zero_or_many_sep_(pc) {
 			seq(
 				callb,
@@ -112,6 +117,7 @@ function q(callb, quanto, callb2=null) {
 			return true;
 		}
 	} else if (quanto == "+/") {
+		chekToAnalyzer("q", 3, callb2);
 		_q_ = function _q_one_or_many_sep_(pc) {
 			return seq(
 					callb,
