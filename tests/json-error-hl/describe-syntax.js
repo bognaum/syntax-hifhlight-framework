@@ -12,8 +12,8 @@ const {
 	rule,
 	token,
 	nToken,
-	sWrap,
-	tokenS,
+	spWrap,
+	spToken,
 	deb,
 } = SyntaxHlFk.describeAPI;
 
@@ -29,7 +29,7 @@ const
 	list = rule(function(pc) {
 		if (token("[").in("list__open")(pc)) {
 			seq(
-				sWrap(r.subject.q("*/", sWrap(token(",").in("list__coma")))),
+				spWrap(r.subject.q("*/", spWrap(token(",").in("list__coma")))),
 				token("]").in("list__close")
 					.or(err.msg("expected closing bracket ' ] ' or coma ' , '")),
 			)(pc);
@@ -38,16 +38,16 @@ const
 			return false;
 	}),
 	dict = rule(function(pc) {
-		if (tokenS("{")(pc)) {
+		if (spToken("{")(pc)) {
 			alter(
-				seq(tokenS("}")),
+				seq(spToken("}")),
 				seq(
 					seq(
 						d.string_n.or(err.msg("expected string name of field")),
-						tokenS(":").or(err.msg("expected colon ' : '")),
+						spToken(":").or(err.msg("expected colon ' : '")),
 						r.subject.or(err.msg("expected subject - (null | boll | number | string | list | dict)"))
-					).q("*/", tokenS(",")),
-					tokenS("}").or(err.msg("expected closing curly ' } ' or coma ' , '")),
+					).q("*/", spToken(",")),
+					spToken("}").or(err.msg("expected closing curly ' } ' or coma ' , '")),
 				),
 			)(pc);
 			return true;

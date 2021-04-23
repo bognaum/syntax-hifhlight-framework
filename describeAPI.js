@@ -7,8 +7,8 @@ export  default {
 	rule,
 	token,
 	nToken,
-	sWrap,
-	tokenS,
+	spWrap,
+	spToken,
 	deb,
 };
 
@@ -197,7 +197,7 @@ function nToken(templ) {
 	return _notToken_;
 }
 
-function tokenS(templ) {
+function spToken(templ) {
 	const _space_wrapped_token_ = function(pc) {
 		return seq(token(/\s+/y).q("*"), token(templ), token(/\s+/y).q("*"),)(pc);
 	}
@@ -205,7 +205,7 @@ function tokenS(templ) {
 	return _space_wrapped_token_;
 }
 
-function sWrap(callb) {
+function spWrap(callb) {
 	const _space_wrapped_ = function(pc) {
 		return seq(token(/\s+/y).q("*"), callb, token(/\s+/y).q("*"),)(pc);
 	}

@@ -12,8 +12,8 @@ const {
 	rule,
 	token,
 	nToken,
-	tokenS,
-	sWrap,
+	spToken,
+	spWrap,
 	deb,
 } = SyntaxHlFk.describeAPI;
 
@@ -82,18 +82,18 @@ const
 		}),
 		f_sign          : domain("f_sign", function(pc) {
 			return seq(
-				sWrap(d.word.as("f_name")),
-				sWrap(d.paren),
+				spWrap(d.word.as("f_name")),
+				spWrap(d.paren),
 			)(pc);
 		}),
 		f_decl          : domain("f_decl", function(pc) {
 			return seq(
-				sWrap(token(/\basync\b/y).in("keyword").q("*")),
-				sWrap(token(/\bfunction\b/y).in("keyword")),
-				sWrap(token("*").in("keyword").q("*")),
-				sWrap(d.word.as("f_name")),
-				sWrap(d.paren),
-				sWrap(d.curly),
+				spWrap(token(/\basync\b/y).in("keyword").q("*")),
+				spWrap(token(/\bfunction\b/y).in("keyword")),
+				spWrap(token("*").in("keyword").q("*")),
+				spWrap(d.word.as("f_name")),
+				spWrap(d.paren),
+				spWrap(d.curly),
 			)(pc);
 		}),
 	},
