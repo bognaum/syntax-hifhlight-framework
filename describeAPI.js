@@ -13,23 +13,23 @@ export  default {
 };
 
 const Analyzer_proto = {
-	q : function wr_q(quanto, sepCallb=undefined) {
+	q : function (quanto, sepCallb=undefined) {
 		if (quanto == "*/" || quanto == "+/")
 			chekToAnalyzer("analyzer.q", 2, sepCallb);
 		return q(this, quanto, sepCallb);
 	},
-	in : function wr_inDomainin(name) {
+	in : function (name) {
 		return domain(name, this);
 	},
-	and : function wr_and(callb) {
+	and : function (callb) {
 		chekToAnalyzer("q", 1, callb);
 		return seq(this, callb);
 	},
-	or : function wr_or(callb) {
+	or : function (callb) {
 		chekToAnalyzer("q", 1, callb);
 		return alter(this, callb);
 	},
-	deb : function wr_deb(i0=0, i1=0) {
+	deb : function (i0=0, i1=0) {
 		return deb(this, i0, i1);
 	},
 };
