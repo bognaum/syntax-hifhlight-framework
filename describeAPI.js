@@ -29,6 +29,25 @@ const Analyzer_proto = {
 		chekToAnalyzer("q", 1, callb);
 		return alter(this, callb);
 	},
+	eTest : function (msg) {
+		return (...args) => {
+			for (let [k, callb] of args.entries())
+				chekToAnalyzer("eTest", k + 1, callb);
+			const _error_test_ = (pc) => {
+				if(this(pc)) {
+					alter(
+						seq(...args),
+						domain("error", token(/\s*.*/y), msg)
+					)(pc);
+					return true;
+				} else {
+					return false;
+				}
+			}
+			insertProto(Analyzer_proto, _error_test_);
+			return _error_test_;
+		}
+	},
 	deb : function (i0=0, i1=0) {
 		return deb(this, i0, i1);
 	},

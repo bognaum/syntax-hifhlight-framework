@@ -27,15 +27,15 @@ const
 		)(pc);
 	}),
 	list = rule(function(pc) {
-		if (token("[").in("list__open")(pc)) {
-			seq(
-				spWrap(r.subject.q("*/", spWrap(token(",").in("list__coma")))),
-				token("]").in("list__close")
-					.or(err.msg("expected closing bracket ' ] ' or coma ' , '")),
+		return token("[").in("list__open")
+			.eTest("Invalid list.")(
+				seq(
+					spWrap(r.subject.q("*/", spWrap(token(",").in("list__coma")))),
+					token("]").in("list__close")
+						.or(err.msg("expected closing bracket ' ] ' or coma ' , '")),
+				)
 			)(pc);
-			return true;
-		} else
-			return false;
+			
 	}),
 	dict = rule(function(pc) {
 		if (spToken("{")(pc)) {
