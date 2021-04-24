@@ -206,6 +206,7 @@ function spToken(templ) {
 }
 
 function spWrap(callb) {
+	chekToAnalyzer("spWrap", 1, callb);
 	const _space_wrapped_ = function(pc) {
 		return seq(token(/\s+/y).q("*"), callb, token(/\s+/y).q("*"),)(pc);
 	}
