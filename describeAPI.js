@@ -264,7 +264,7 @@ function insertProto(proto, ob) {
 }
 
 function chekToAnalyzer(fName, argN, callb) {
-	if (! callb || Object.getPrototypeOf(callb) != Analyzer_proto) {
+	if (! callb || callb instanceof Analyzer_proto) {
 		console.error(`Argument`, argN, `(from 1) of function '${fName}()' is not Analiser. There is: \n`, callb?.toString ? callb.toString() : callb);
 		throw new Error(`Invalid callback. \n\tArgument ${argN} of function '${fName}()' is not Analiser. \n`);
 	} else
