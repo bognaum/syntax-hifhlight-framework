@@ -22,7 +22,7 @@ const
 	__main_ = rule(function(pc) {
 		return seq(
 			spWrap(r.subject.wrong("Main. Expected subject.")),
-			error("Main. Unexpected symbol after end of code.")
+			error("Main. Unexpected symbol after end of code.").q("*")
 		)(pc);
 	}),
 	list = rule(function(pc) {
