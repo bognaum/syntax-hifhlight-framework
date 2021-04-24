@@ -9,6 +9,7 @@ export  default {
 	nToken,
 	spWrap,
 	spToken,
+	error,
 	deb,
 };
 
@@ -47,7 +48,7 @@ const Analyzer_proto = {
 		const _wrong_ = (pc) => {
 			return alter(
 				this,
-				domain("error", token(/\s*.*/y), msg)
+				error(msg)
 			)(pc);
 		}
 		insertProto(Analyzer_proto, _wrong_);
@@ -236,6 +237,10 @@ function spWrap(callb) {
 	}
 	insertProto(Analyzer_proto, _space_wrapped_);
 	return _space_wrapped_;
+}
+
+function error(msg) {
+	return domain("error", token(/\s*.*/y), msg);
 }
 
 function deb(callb, a=0, b=0) {

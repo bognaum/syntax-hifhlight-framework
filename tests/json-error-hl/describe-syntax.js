@@ -14,6 +14,7 @@ const {
 	nToken,
 	spWrap,
 	spToken,
+	error,
 	deb,
 } = SyntaxHlFk.describeAPI;
 
@@ -21,8 +22,7 @@ const
 	__main_ = rule(function(pc) {
 		return seq(
 			spWrap(r.subject.wrong("Main. Expected subject.")),
-			// err.msg("unwanted symbol after end of code").q("*"),
-			not(spToken(/.+/y)).wrong("Main. Unexpected symbol after end of code.")
+			error("Main. Unexpected symbol after end of code.")
 		)(pc);
 	}),
 	list = rule(function(pc) {
