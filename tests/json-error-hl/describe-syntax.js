@@ -20,19 +20,18 @@ const {
 const
 	__main_ = rule(function(pc) {
 		return seq(
-			r.space.q("*"),
-			r.subject.or(err.msg("expected subject")),
-			r.space.q("*"),
-			err.msg("unwanted symbol after end of code").q("*"),
+			spWrap(r.subject.wrong("Main. Expected subject.")),
+			// err.msg("unwanted symbol after end of code").q("*"),
+			not(spToken(/.+/y)).wrong("Main. Unexpected symbol after end of code.")
 		)(pc);
 	}),
 	list = rule(function(pc) {
 		return token("[").in("list__open")
-			.eTest("Invalid list.")(
+			.eTest(
 				seq(
 					spWrap(r.subject.q("*/", spWrap(token(",").in("list__coma")))),
 					token("]").in("list__close")
-						.or(err.msg("expected closing bracket ' ] ' or coma ' , '")),
+						.wrong("List. Expected closing bracket ' ] '."),
 				)
 			)(pc);
 			
@@ -43,19 +42,16 @@ const
 				spToken("}"),
 				seq(
 					seq(
-						d.string_n.or(err.msg("expected string name of field")),
-						spToken(":").or(err.msg("expected colon ' : '")),
-						r.subject.or(err.msg("expected subject - (null | boll | number | string | list | dict)"))
+						d.string_n.wrong("Dict. Expected string name of field."),
+						spToken(":").wrong("Dict. Expected colon ' : '."),
+						r.subject.wrong("Dict. Expected subject - (null | boll | number | string | list | dict).")
 					).q("*/", spToken(",")),
-					spToken("}").or(err.msg("expected closing curly ' } ' or coma ' , '")),
+					spToken("}").wrong("Dict. Expected closing curly ' } ' or coma ' , '."),
 				),
 			)(pc);
 			return true;
 		} else
 			return false;
-	}),
-	err = domain("error", function(pc) {
-		return token(/\s*.*/y)(pc);
 	}),
 	d = {
 		string_v : domain("string_v" , function(pc) {
