@@ -4,16 +4,17 @@ import SyntaxHlFk from "../../index.js"
 // import "./../themes.scss";
 
 const {
+	token,
+	nToken,
+	spToken,
+	rule,
+	domain,
 	seq,
 	alter,
 	q,
 	not,
-	domain,
-	rule,
-	token,
-	nToken,
-	spToken,
 	spWrap,
+	error,
 	deb,
 } = SyntaxHlFk.describeAPI;
 
