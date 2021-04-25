@@ -9,12 +9,253 @@
 <body>
 	<div class="container">
 		<h1>Description</h1>
-		<h2>Analyzer-macers</h2>
+		<p>
+			Text parsing occurs according a following principles.
+		</p>
+		<ol>
+			<li>
+				<p>
+					A token is attached to the text so that its beginning corresponds to the current text parsing position.
+				</p>
+			</li>
+			<li>
+				<p>
+					If this token is matched - the current text parsing position is moved by the length of the matched segment.
+				</p>
+				<p>
+					If this token is not matched - the current text parsing position stays in place.
+				</p>
+			</li>
+		</ol>
+		<p>
+			Token can be of variable length. But token never can be of zero length.
+		</p>
+		<p>
+			Token belongs to the <code>Analyzer</code> class. That is, the token is an <b>analyzer</b>. But in this framework is other analysers, which allows to combine tokens and create complex rules.
+		</p>
+		<p>
+			Application of analyzers to the text is hypothetical. In its process, hypotheses are built, which can then be confirmed or not confirmed. If no one hypothesis is confirmed, then the syntax of the text will remain unrecognized.
+		</p>
+		<p>
+			But the analyzing script can be written so that the hypothesis will be confirmed before  parsing of the analyzed text area is ended. For this you need to use the <b>"breakpoint"</b> analyzer. In this case some part of the analyzing rule will be compared with the text after the hypothesis has already been confirmed, and it can match or not match with the text. If it does not match with text it will cause a <b>default error</b>. That is, some part of the text will be marked with a domain named "error" and a message "Default error.".
+		</p>
+		<p>
+			Using the <b>"wrong"</b> analyzer, we can localize the error by determining what exactly where exactly went wrong. The "wrong" analyzer will create an error domain with the specified message specifically instead concrete of the analyzer that did not match the text. In a properly written script, any possible error should be caught by the "wrong" analyzer, and the default error should not occur.
+		</p>
+		<p>
+			If you only want to use this framework for syntax highlighting, you don't need to use the "breakpoint" and the "wrong" analyzers. In this case, the hypothesis will be built from the first to the last letter of the text, and if the hypothesis in some way does not coincide with the text, the text simply will not be highlighted. But if you just need highlighting, you can write your script that is loyal to syntax errors in text.
+		</p>
+
+
+
+
+		<h2>Analyzers</h2>
+		<table border="" cellpadding="5" cellspacing="0">
+			<tbody>
+				<tr>
+					<td class="trn"></td>
+					<td class="ta-c">
+						<p>token</p>
+					</td>
+					<td class="ta-c"><code>token()</code></td>
+					<td>
+						<p>
+							Token have a template - a string or RE. 
+						</p>
+						<p>
+							Token possesses primary ability to attach a template to the text starting from a certain position.
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<td class="trn"></td>
+					<td class="ta-c">
+						<p>anti-token</p>
+					</td>
+					<td class="ta-c"><code>nToken()</code></td>
+					<td>
+						<p>
+							The same as the token, but vice versa.
+						</p>
+						<p>
+							ante token is considered to be matched if its pattern does not match. In this case, the match is considered to be one character long.
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<td class="trn"></td>
+					<td class="ta-c">
+						<p>space wrapped token</p>
+					</td>
+					<td class="ta-c"><code>spToken()</code></td>
+					<td>
+						<p>
+							A token, wrapped in an arbitrary number of spaces starting at zero.
+						</p>
+						<p>
+							For example a text phrase <code>a = 2</code> is the same, that <code>a=2</code> or <code>a=   2</code>. To describe token <code>=</code> we can use the space wrapped token.
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<td class="trn"></td>
+					<td class="ta-c">
+						<p>sequence</p>
+					</td>
+					<td class="ta-c">
+						<code>seq()</code><br>
+						<code><span class="meta cb">analyzer</span>.and()</code><br>
+					</td>
+					<td>
+						<p>Combiner.</p>
+						<p>A sequence of multiple tokens or other analysers.</p>
+					</td>
+				</tr>
+				<tr>
+					<td class="trn"></td>
+					<td class="ta-c">
+						<p>alternation</p>
+					</td>
+					<td class="ta-c">
+						<code>alter()</code><br>
+						<code><span class="meta cb">analyzer</span>.or()</code><br>
+					</td>
+					<td>
+						<p>Combiner.</p>
+						<p>One of several analyzers.</p>
+					</td>
+				</tr>
+				<tr>
+					<td class="trn"></td>
+					<td class="ta-c">
+						<p>quantity</p>
+					</td>
+					<td class="ta-c">
+						<code>q()</code><br>
+						<code><span class="meta cb">analyzer</span>.q()</code><br>
+					</td>
+					<td>
+						<p>Combiner.</p>
+						<p>Quantifier.</p>
+						<p>Comes in the following kinds:</p>
+						<ol>
+							<li>
+								<code>* </code> - zero or many
+							</li>
+							<li>
+								<code>*/</code> - zero or many separated by some setted analyzer
+							</li>
+							<li>
+								<code>+ </code> - one or many
+							</li>
+							<li>
+								<code>+/</code> - one or many separated by some setted analyzer
+							</li>
+							<li>
+								<code>? </code> - zero or one
+							</li>
+						</ol>
+					</td>
+				</tr>
+				<tr>
+					<td class="trn"></td>
+					<td class="ta-c">
+						<p>negation</p>
+					</td>
+					<td class="ta-c"><code>not()</code></td>
+					<td>
+						<p>
+							Negation takes another analyzer as an argument. If the analyzer is not matched - negation is matched.
+						</p>
+						<p>
+							In this case, one character is considered a matched character.
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<td class="trn"></td>
+					<td class="ta-c">
+						<p>space wrapper</p>
+					</td>
+					<td class="ta-c"><code>spWrap()</code></td>
+					<td>
+						<p>
+							It wraps some analyzer in an arbitrary number of spaces starting at zero.
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<td class="trn"></td>
+					<td class="ta-c">
+						<p>rule</p>
+					</td>
+					<td class="ta-c"><code>rule()</code></td>
+					<td>
+						<p>A some combination of meny analyzers, connected with combiners.</p>
+						<p></p>
+					</td>
+				</tr>
+				<tr>
+					<td class="trn"></td>
+					<td class="ta-c">
+						<p>domain</p>
+					</td>
+					<td class="ta-c"><code>domain()</code></td>
+					<td>
+						<p>A rule with name.</p>
+						<p>
+							In case of domain matching the corresponding region of the text is marked with this name.
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<td class="trn"></td>
+					<td class="ta-c">
+						<p>error</p>
+					</td>
+					<td class="ta-c"><code>error()</code></td>
+					<td>
+						<p>A special domain with name "error".</p>
+						<p>
+							It is automatically applied when the error search engine is triggered.
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<td class="trn"></td>
+					<td class="ta-c">
+						<p>breakpoint</p>
+					</td>
+					<td class="ta-c"><code><span class="meta cb">analyzer</span>.eTest()</code></td>
+					<td>
+						<p>
+							A hypothesis is built before the breakpoint. After the breakpoint, the search for errors begins.
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<td class="trn"></td>
+					<td class="ta-c">
+						<p>wrong</p>
+					</td>
+					<td class="ta-c"><code><span class="meta cb">analyzer</span>.wrong()</code></td>
+					<td>
+						<p>
+							It called as method of some analyzer and sets an error message. If giving analyzer does not matched, an error with this error message will be generated.
+						</p>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+
+
+		<h2>Analyzer-makers</h2>
 		<table border="" cellpadding="5" cellspacing="0">
 			<tbody>
 				<tr>
 					<th colspan="3">
-						<h3>Table of analyser-macers</h3>
+						<h3>Table of analyser-makers</h3>
 					</th>
 				</tr>
 				<tr>
