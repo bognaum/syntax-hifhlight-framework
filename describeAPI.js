@@ -247,6 +247,14 @@ function error(msg) {
 	return _error_;
 }
 
+function undefinedError(msg) {
+	const _undefined_error_ = function(pc) {
+		return domain("error", token(/\s*.*/y), "Undefined error. "+msg)(pc);
+	}
+	insertProto(Analyzer_proto, _undefined_error_);
+	return _undefined_error_;
+}
+
 function deb(callb, a=0, b=0) {
 	chekToAnalyzer("deb", 1, callb);
 	function _deb_(pc) {
