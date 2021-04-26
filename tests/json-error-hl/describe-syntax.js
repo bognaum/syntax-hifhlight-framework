@@ -33,7 +33,7 @@ const
 					token("]").in("list__close")
 						.wrong("List. Expected closing bracket ' ] '."),
 				)
-			)(pc);
+			).msg("List.")(pc);
 			
 	}),
 	dict = rule(function(pc) {
@@ -50,7 +50,7 @@ const
 						spToken("}").wrong("Dict. Expected closing curly ' } ' or coma ' , '."),
 					),
 				)
-			)(pc);
+			).msg("Dict.")(pc);
 	}),
 	d = {
 		string_v : domain("string_v" , function(pc) {

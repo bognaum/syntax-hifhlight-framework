@@ -71,7 +71,7 @@ function seq(...callbs) {
 		const hpc = pc.createHypo();
 		for (let [k, callb] of callbs.entries()) {
 			const res = callb(hpc);
-			if (res) 
+			if (res || pc.errC.eFlag) 
 				continue;
 			else 
 				return false;
@@ -184,7 +184,7 @@ function domain(name, callb, msg=null) {
 			status = callb(chpc)
 		if (msg) 
 			chpc.msg = msg;
-		if (status) 
+		if (status || pc.errC.eFlag) 
 			pc.acceptChildHypo(chpc);
 		return !! status;
 	}
@@ -203,7 +203,7 @@ function rule(callb) {
 		const 
 			hpc    = pc.createHypo(),
 			status = callb(hpc);
-		if (status) 
+		if (status || pc.errC.eFlag) 
 			pc.acceptHypo(hpc);
 		return !! status;
 	}
@@ -246,7 +246,10 @@ function spWrap(callb) {
 
 function error(msg) {
 	const _error_ = function(pc) {
-		return domain("error", token(/\s*.*/y), msg)(pc);
+		domain("error", token(/\s*.*/y), msg)(pc);
+		pc.errC.eFlag = true;
+		domain("after-error", token(/\s*.*/y), msg).q("*")(pc);
+		return true;
 	}
 	insertProto(Analyzer_proto, _error_);
 	return _error_;
@@ -254,7 +257,7 @@ function error(msg) {
 
 function undefinedError(msg) {
 	const _undefined_error_ = function(pc) {
-		return domain("error", token(/\s*.*/y), "Undefined error. "+msg)(pc);
+		return error("Undefined error. "+msg)(pc);
 	}
 	insertProto(Analyzer_proto, _undefined_error_);
 	return _undefined_error_;
