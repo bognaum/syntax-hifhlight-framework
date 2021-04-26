@@ -7,6 +7,7 @@ export default class ParseContext {
 			mSlot:  {value: pc.mSlot},
 			dStack: {value: pc.dStack},
 			lFStack: {value: pc.lFStack},
+			errC: {value: pc.errC || {eFlag: false}},
 		});
 		this.i = pc.i;
 		this.i0 = pc.i0;
@@ -48,8 +49,8 @@ export default class ParseContext {
 	}
 	createHypo () {
 		const 
-			{text, i, mSlot, dStack} = this,
-			hpc = {text, i, mSlot: [], dStack};
+			{text, i, mSlot, dStack, errC} = this,
+			hpc = {text, i, mSlot: [], dStack, errC};
 		return new ParseContext(hpc);
 	}
 	acceptHypo (hpc) {
@@ -61,10 +62,10 @@ export default class ParseContext {
 	}
 	createChildHypo (name) {
 		const 
-			{text, i, dStack} = this,
+			{text, i, dStack, errC} = this,
 			mSlot = [],
 			mn = new ModelNode(name, mSlot),
-			hpc = {text, i, i0: i, mSlot, selfMN: mn, dStack};
+			hpc = {text, i, i0: i, mSlot, selfMN: mn, dStack, errC};
 		mn.i0 = i;
 		return new ParseContext(hpc);
 	}
