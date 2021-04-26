@@ -37,21 +37,20 @@ const
 			
 	}),
 	dict = rule(function(pc) {
-		if (spToken("{")(pc)) {
-			alter(
-				spToken("}"),
-				seq(
+		return spToken("{")
+			.eTest(
+				alter(
+					spToken("}"),
 					seq(
-						d.string_n.wrong("Dict. Expected string name of field."),
-						spToken(":").wrong("Dict. Expected colon ' : '."),
-						r.subject.wrong("Dict. Expected subject - (null | boll | number | string | list | dict).")
-					).q("*/", spToken(",")),
-					spToken("}").wrong("Dict. Expected closing curly ' } ' or coma ' , '."),
-				),
+						seq(
+							d.string_n.wrong("Dict. Expected string name of field."),
+							spToken(":").wrong("Dict. Expected colon ' : '."),
+							r.subject.wrong("Dict. Expected subject - (null | boll | number | string | list | dict).")
+						).q("*/", spToken(",")),
+						spToken("}").wrong("Dict. Expected closing curly ' } ' or coma ' , '."),
+					),
+				)
 			)(pc);
-			return true;
-		} else
-			return false;
 	}),
 	d = {
 		string_v : domain("string_v" , function(pc) {
