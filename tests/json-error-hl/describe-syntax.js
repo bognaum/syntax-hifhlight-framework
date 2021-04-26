@@ -21,33 +21,33 @@ const {
 const
 	__main_ = rule(function(pc) {
 		return seq(
-			spWrap(r.subject.wrong("Main. Expected subject.")),
+			spWrap(r.subject.catch("Main. Expected subject.")),
 			error("Main. Unexpected symbol after end of code.").q("*")
 		)(pc);
 	}),
 	list = rule(function(pc) {
 		return token("[").in("list__open")
-			.eTest(
+			.break(
 				seq(
 					spWrap(r.subject.q("*/", spWrap(token(",").in("list__coma")))),
 					token("]").in("list__close")
-						.wrong("List. Expected closing bracket ' ] '."),
+						.catch("List. Expected closing bracket ' ] '."),
 				)
 			).msg("List.")(pc);
 			
 	}),
 	dict = rule(function(pc) {
 		return spToken("{")
-			.eTest(
+			.break(
 				alter(
 					spToken("}"),
 					seq(
 						seq(
-							d.string_n.wrong("Dict. Expected string name of field."),
-							spToken(":").wrong("Dict. Expected colon ' : '."),
-							r.subject.wrong("Dict. Expected subject - (null | boll | number | string | list | dict).")
+							d.string_n.catch("Dict. Expected string name of field."),
+							spToken(":").catch("Dict. Expected colon ' : '."),
+							r.subject.catch("Dict. Expected subject - (null | boll | number | string | list | dict).")
 						).q("*/", spToken(",")),
-						spToken("}").wrong("Dict. Expected closing curly ' } ' or coma ' , '."),
+						spToken("}").catch("Dict. Expected closing curly ' } ' or coma ' , '."),
 					),
 				)
 			).msg("Dict.")(pc);

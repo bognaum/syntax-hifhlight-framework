@@ -30,7 +30,7 @@ const Analyzer_proto = {
 		chekToAnalyzer("q", 1, callb);
 		return alter(this, callb);
 	},
-	eTest : function (...args) {
+	break : function (...args) {
 		for (let [k, callb] of args.entries())
 			chekToAnalyzer("seq", k + 1, callb);
 		let message = "";
@@ -49,7 +49,7 @@ const Analyzer_proto = {
 		}
 		return _error_test_;
 	},
-	wrong : function (msg) {
+	catch : function (msg) {
 		const _wrong_ = (pc) => {
 			return alter(
 				this,
