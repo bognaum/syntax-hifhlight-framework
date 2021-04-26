@@ -240,7 +240,11 @@ function spWrap(callb) {
 }
 
 function error(msg) {
-	return domain("error", token(/\s*.*/y), msg);
+	const _error_ = function(pc) {
+		return domain("error", token(/\s*.*/y), msg)(pc);
+	}
+	insertProto(Analyzer_proto, _error_);
+	return _error_;
 }
 
 function deb(callb, a=0, b=0) {
