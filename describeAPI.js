@@ -32,16 +32,21 @@ const Analyzer_proto = {
 	},
 	eTest : function (...args) {
 		for (let [k, callb] of args.entries())
-		chekToAnalyzer("seq", k + 1, callb);
+			chekToAnalyzer("seq", k + 1, callb);
+		let message = "";
 		const _error_test_ = (pc) => {
 			if(this(pc)) {
-				seq(...args)(pc);
+				seq(...args).or(undefinedError(message))(pc);
 				return true;
 			} else {
 				return false;
 			}
 		}
 		insertProto(Analyzer_proto, _error_test_);
+		_error_test_.msg = function(msg) {
+			message = msg;
+			return this;
+		}
 		return _error_test_;
 	},
 	wrong : function (msg) {
