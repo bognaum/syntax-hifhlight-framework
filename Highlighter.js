@@ -68,8 +68,9 @@ export default function HighlightAPI (mainRule, clPref="syntax-hl-fk") {
 	}
 
 	function renderToHighlight (model, firstLineNum=1) {
-		const content = [], dStack = [], msgStack = [], dNodeStack = [];
+		const content = [], nodeStack = [];
 		let lNum = firstLineNum, indentZoneFlag = true, lastLine;
+		nodeStack.last = () => nodeStack[nodeStack.length - 1];
 		content.push(lastLine = makeLine(lNum ++));
 		recur(model);
 		return content;
@@ -77,49 +78,56 @@ export default function HighlightAPI (mainRule, clPref="syntax-hl-fk") {
 			if (sb instanceof Array) {
 				sb.forEach(recur);
 			} else if (typeof sb == "object") {
-				sb.parent = dNodeStack[dNodeStack.length - 1];
+				sb.parent = nodeStack.last() || null;
 
-				dStack.push(sb.name);
-				dNodeStack.push(sb);
-				msgStack.push(sb.msg || "");
-
+				nodeStack.push(sb);
 				recur(sb.ch);
+				nodeStack.pop();
 
-				msgStack.pop();
-				dNodeStack.pop();
-				dStack.pop();
-			} else {
+			} else if (typeof sb == "string") {
 				if (sb == "\n") {
 					lastLine.setEol();
 					content.push(lastLine = makeLine(lNum ++));
 					indentZoneFlag = true;
+				} else if (indentZoneFlag && sb.match(/^\s+$/)) {
+					lastLine.indent.innerHTML += sb;
 				} else {
-					if (indentZoneFlag && sb.match(/^\s+$/)) {
-						lastLine.indent.innerHTML += sb;
-					} else {
+					let _sb = sb;
+					if (indentZoneFlag) {
+						const m = sb.match(/^(\s*)(.*)/);
+						if (! m)
+							throw new Error(`sb not matched with /^(\\s+)(.*)/. sb = ${sb}`)
+						const
+							indent = m[1],
+							theText = m[2];
+						lastLine.indent.innerHTML += indent;
+						_sb = theText;
 						indentZoneFlag = false;
-						const 
-							lastDomainNode = dNodeStack[dNodeStack.length - 1],
-							className = dStack.filter(v => v).join("- "),
-							el = evaluate(`<span class="${className || ""}"></span>`);
-						lastLine.content.appendChild(el);
-						el.textContent = sb;
-						if (msgStack.join("")) {
-							let 
-								msgStr = "";
-							dStack.forEach((v,i,a) => {
-								let pf = (i + 1 == a.length)? "" : "-";
-								msgStr += `${v+pf} : ${msgStack[i]} \n`;
-							});
-							el.title = msgStr;
-							el.style.cursor = "pointer";
-						}
-						if (lastDomainNode) {
-							el.dataset.region = `${lastDomainNode.i0}:${lastDomainNode.i1}`;
-							el.domain = lastDomainNode;
-						}
+					}
+					const 
+						lastDomainNode = nodeStack.last(),
+						className = nodeStack.map(v => v.name).filter(v => v).join("- "),
+						el = evaluate(`<span class="${className || ""}"></span>`);
+					lastLine.content.appendChild(el);
+					el.textContent = _sb;
+					el.astNode = nodeStack.last();
+					const msgStr = nodeStack.reduce((a,v) => {
+						if (v.msg) 
+							a += `${v.name} : ${v.msg} \n`;
+						return a;
+					}, "");
+					if (msgStr) {
+						el.title = msgStr;
+						el.style.cursor = "pointer";
+					}
+					if (lastDomainNode) {
+						el.dataset.region = `${lastDomainNode.i0}:${lastDomainNode.i1}`;
+						el.domain = lastDomainNode;
 					}
 				}
+			} else {
+				console.error("Invalid model node", sb);
+				throw new Error("Invalid model node.")
 			}
 		}
 	}
