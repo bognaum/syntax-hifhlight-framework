@@ -46,10 +46,10 @@ const
 			return token(/\b[a-zA-Z_$][0-9a-zA-Z_$]*\b/y)(pc);
 		}),
 		operator        : domain("operator", function(pc) {
-			return token(/\?\.|\?|=>|!|%|&&|&|\*|-|\+|=|\|\||\||:|<|>/y)(pc);
+			return token(/\?\.|\?|=>|!|%|&&|&|\*|-|\+|=|\|\||\||<|>/y)(pc);
 		}),
 		punctuation     : domain("punctuation", function(pc) {
-			return token(/\.|,|;/y)(pc);
+			return token(/\.|,|:|;/y)(pc);
 		}),
 		number          : domain("number", function(pc) {
 			return token(/\b\d+\.|\.\d+\b|\b\d+\.?\d*\b/y)(pc);
