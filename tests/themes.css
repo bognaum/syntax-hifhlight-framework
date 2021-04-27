@@ -1,6 +1,9 @@
 pre.syntax-hl-fk.calm-theme {
   background-color: #222;
   color: #eee; }
+  pre.syntax-hl-fk.calm-theme .syntax-hl-fk__line .syntax-hl-fk__line-number.error {
+    color: #fff;
+    background-color: #e48; }
   pre.syntax-hl-fk.calm-theme .syntax-hl-fk__line-text {
     color: #eee; }
     pre.syntax-hl-fk.calm-theme .syntax-hl-fk__line-text .string_v {
@@ -49,6 +52,10 @@ pre.syntax-hl-fk.calm-theme {
 
 pre.syntax-hl-fk.calm-clarified-theme .syntax-hl-fk__line .syntax-hl-fk__line-number {
   background-color: #444; }
+
+pre.syntax-hl-fk.calm-clarified-theme .syntax-hl-fk__line .syntax-hl-fk__line-number.error {
+  color: #fff;
+  background-color: #e48; }
 
 pre.syntax-hl-fk.calm-clarified-theme .syntax-hl-fk__line-text {
   color: #eee; }
@@ -99,6 +106,10 @@ pre.syntax-hl-fk.calm-clarified-theme .syntax-hl-fk__line-text {
 pre.syntax-hl-fk.calm-clarified-json-theme .syntax-hl-fk__line .syntax-hl-fk__line-number {
   background-color: #444; }
 
+pre.syntax-hl-fk.calm-clarified-json-theme .syntax-hl-fk__line .syntax-hl-fk__line-number.error {
+  color: #fff;
+  background-color: #e48; }
+
 pre.syntax-hl-fk.calm-clarified-json-theme .syntax-hl-fk__line-text .string_v {
   color: #ddc; }
 
@@ -125,6 +136,9 @@ pre.syntax-hl-fk.calm-clarified-json-theme .syntax-hl-fk__line-text .error {
 pre.syntax-hl-fk.monokai-theme {
   background-color: #333;
   color: #eee; }
+  pre.syntax-hl-fk.monokai-theme .syntax-hl-fk__line .syntax-hl-fk__line-number.error {
+    color: #fff;
+    background-color: #e48; }
   pre.syntax-hl-fk.monokai-theme .syntax-hl-fk__line-text .f_name {
     color: #3bd; }
   pre.syntax-hl-fk.monokai-theme .syntax-hl-fk__line-text .comment {
@@ -160,6 +174,9 @@ pre.syntax-hl-fk.monokai-theme {
 
 pre.syntax-hl-fk.monokai-clarified-theme {
   color: #eee; }
+  pre.syntax-hl-fk.monokai-clarified-theme .syntax-hl-fk__line .syntax-hl-fk__line-number.error {
+    color: #fff;
+    background-color: #e48; }
   pre.syntax-hl-fk.monokai-clarified-theme .syntax-hl-fk__line-text .f_name {
     color: #3bd; }
   pre.syntax-hl-fk.monokai-clarified-theme .syntax-hl-fk__line-text .comment {
@@ -195,6 +212,9 @@ pre.syntax-hl-fk.monokai-clarified-theme {
 
 pre.syntax-hl-fk.t1-theme {
   color: #eee; }
+  pre.syntax-hl-fk.t1-theme .syntax-hl-fk__line .syntax-hl-fk__line-number.error {
+    color: #fff;
+    background-color: #e48; }
   pre.syntax-hl-fk.t1-theme .syntax-hl-fk__line-text .f_name {
     color: #3bd; }
   pre.syntax-hl-fk.t1-theme .syntax-hl-fk__line-text .comment {
@@ -230,6 +250,9 @@ pre.syntax-hl-fk.t1-theme {
 
 pre.syntax-hl-fk.t2-theme {
   color: #eee; }
+  pre.syntax-hl-fk.t2-theme .syntax-hl-fk__line .syntax-hl-fk__line-number.error {
+    color: #fff;
+    background-color: #e48; }
   pre.syntax-hl-fk.t2-theme .syntax-hl-fk__line-text .string_v {
     color: #fd8; }
   pre.syntax-hl-fk.t2-theme .syntax-hl-fk__line-text .string_n {
