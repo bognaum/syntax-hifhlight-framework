@@ -40,10 +40,13 @@
 			But the analyzing script can be written so that the hypothesis will be confirmed before  parsing of the analyzed text area is ended. For this you need to use the <b>"breakpoint"</b> analyzer. In this case some part of the analyzing rule will be compared with the text after the hypothesis has already been confirmed, and it can match or not match with the text. If it does not match with text it will cause a <b>default error</b>. That is, some part of the text will be marked with a domain named "error" and a message "Default error.".
 		</p>
 		<p>
-			Using the <b>"wrong"</b> analyzer, we can localize the error by determining what exactly where exactly went wrong. The "wrong" analyzer will create an error domain with the specified message specifically instead concrete of the analyzer that did not match the text. In a properly written script, any possible error should be caught by the "wrong" analyzer, and the default error should not occur.
+			Using the <b>"error catcher"</b> analyzer, we can localize the error by determining what and where exactly went wrong. The "error catcher" analyzer will create an error domain with the specified message specifically instead concrete of the analyzer that did not match the text. In a properly written script, any possible error should be caught by the "error catcher" analyzer, and the default error should not occur.
 		</p>
 		<p>
-			If you only want to use this framework for syntax highlighting, you don't need to use the "breakpoint" and the "wrong" analyzers. In this case, the hypothesis will be built from the first to the last letter of the text, and if the hypothesis in some way does not coincide with the text, the text simply will not be highlighted. But if you just need highlighting, you can write your script that is loyal to syntax errors in text.
+			After the analyzing script has found first error, further text analysis will be stopped. The text after the error will be marked with the <code>after-error</code> domain and will not be highlighted.
+		</p>
+		<p>
+			If you only want to use this framework for syntax highlighting, you don't need to use the "breakpoint" and the "error catcher" analyzers. In this case, the hypothesis will be built from the first to the last letter of the text, and if the hypothesis in some way does not coincide with the text, the text simply will not be highlighted. But if you just need highlighting, you can write your script that is loyal to syntax errors in text.
 		</p>
 
 
@@ -226,7 +229,7 @@
 					<td class="ta-c">
 						<p>breakpoint</p>
 					</td>
-					<td class="ta-c"><code><span class="meta cb">analyzer</span>.eTest()</code></td>
+					<td class="ta-c"><code><span class="meta cb">analyzer</span>.break()</code></td>
 					<td>
 						<p>
 							A hypothesis is built before the breakpoint. After the breakpoint, the search for errors begins.
@@ -236,9 +239,9 @@
 				<tr>
 					<td class="trn"></td>
 					<td class="ta-c">
-						<p>wrong</p>
+						<p>error catcher</p>
 					</td>
-					<td class="ta-c"><code><span class="meta cb">analyzer</span>.wrong()</code></td>
+					<td class="ta-c"><code><span class="meta cb">analyzer</span>.catch()</code></td>
 					<td>
 						<p>
 							It called as method of some analyzer and sets an error message. If giving analyzer does not matched, an error with this error message will be generated.
@@ -386,14 +389,14 @@
 				</tr>
 				<tr>
 					<td class="trn"></td>
-					<td><code>.eTest( ...callbs )</code></td>
+					<td><code>.break( ...callbs )</code></td>
 					<td>
 						<p></p>
 					</td>
 				</tr>
 				<tr>
 					<td class="trn"></td>
-					<td><code>.wrong( msg )</code></td>
+					<td><code>.catch( msg )</code></td>
 					<td>
 						<p></p>
 					</td>
