@@ -248,7 +248,7 @@ function error(msg) {
 	const _error_ = function(pc) {
 		domain("error", token(/\s*.*/y), msg)(pc);
 		pc.errC.eFlag = true;
-		domain("after-error", token(/\s*.*/y), msg).q("*")(pc);
+		domain("after-error", token(/\s+|\S+/y), msg).q("*")(pc);
 		return true;
 	}
 	insertProto(Analyzer_proto, _error_);
