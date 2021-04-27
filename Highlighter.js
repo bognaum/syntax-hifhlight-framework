@@ -108,8 +108,14 @@ export default function HighlightAPI (mainRule, clPref="syntax-hl-fk") {
 						lastDomainNode = nodeStack.last(),
 						className = nodeStack.map(v => v.name).filter(v => v).join("- "),
 						el = evaluate(`<span class="${className || ""}"></span>`);
-					if (nodeStack.last()?.name == "error")
+					if (nodeStack.last()?.name == "error") {
 						lastLine.guter.classList.add("error");
+						lastLine.guter.title = nodeStack.last()?.msg;
+					}
+					if (nodeStack.last()?.name == "after-error") {
+						lastLine.guter.classList.add("after-error");
+						lastLine.guter.title = nodeStack.last()?.msg;
+					}
 					lastLine.content.appendChild(el);
 					el.textContent = _sb;
 					el.astNode = nodeStack.last();
