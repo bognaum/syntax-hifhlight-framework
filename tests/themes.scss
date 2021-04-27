@@ -1,11 +1,8 @@
 $pref : "syntax-hl-fk";
 
-pre.#{$pref}.calm-theme {
+.#{$pref}.calm-theme {
 	background-color: #222;
 	color: #eee;
-	.#{$pref}__line .#{$pref}__line-number.error {
-		color: #fff; background-color: #e48;
-	}
 	.#{$pref}__line-text {
 		color: #eee;
 		// .string_v    {color: #FAF4C6;}
@@ -15,7 +12,6 @@ pre.#{$pref}.calm-theme {
 		// .bool        {color: #98f;}
 		// .number      {color: #f90;}
 		._null       {color: #98f;}
-		.error       {color: #fff; background-color: #e48; box-shadow: inset 0 0 2px #fff;}
 		// .slashed     {color: #98f;}
 
 		// .comment     {color: #888;}
@@ -39,13 +35,10 @@ pre.#{$pref}.calm-theme {
 
 }
 
-pre.#{$pref}.calm-clarified-theme {
+.#{$pref}.calm-clarified-theme {
 	.#{$pref}__line .#{$pref}__line-number {
 		background-color: #444;
 		// border-right: 3px solid #ccc;
-	}
-	.#{$pref}__line .#{$pref}__line-number.error {
-		color: #fff; background-color: #e48;
 	}
 	.#{$pref}__line-text {
 		color: #eee;
@@ -54,7 +47,6 @@ pre.#{$pref}.calm-clarified-theme {
 		.string_v      {color: #ddc;}
 		.string_n      {color: #78a;}
 		._null         {color: #98f;}
-		.error         {color: #fff; background-color: #e48; box-shadow: inset 0 0 2px #fff;}
 		.f_name        {color: #eee; font-weight: bold;}
 		.comment       {color: #777;}
 		.string        {color: #b98;}
@@ -75,13 +67,10 @@ pre.#{$pref}.calm-clarified-theme {
 
 }
 
-pre.#{$pref}.calm-clarified-json-theme {
+.#{$pref}.calm-clarified-json-theme {
 	.#{$pref}__line .#{$pref}__line-number {
 		background-color: #444;
 		// border-right: 3px solid #ccc;
-	}
-	.#{$pref}__line .#{$pref}__line-number.error {
-		color: #fff; background-color: #e48;
 	}
 	.#{$pref}__line-text {
 		.string_v      {color: #ddc;}
@@ -90,18 +79,14 @@ pre.#{$pref}.calm-clarified-json-theme {
 		.number        {color: #fb6;}
 		.slashed       {color: #fb6;}
 		._null         {color: #98f;}
-		.error         {color: #fff; background-color: #e48; box-shadow: inset 0 0 2px #fff;}
 	}
 
 }
 
 
-pre.#{$pref}.monokai-theme {
+.#{$pref}.monokai-theme {
 	background-color: #333;
 	color: #eee;
-	.#{$pref}__line .#{$pref}__line-number.error {
-		color: #fff; background-color: #e48;
-	}
 	.#{$pref}__line-text {
 		.f_name      {color: #3bd;}
 		.comment     {color: #888;}
@@ -122,12 +107,9 @@ pre.#{$pref}.monokai-theme {
 	}
 }
 
-pre.#{$pref}.monokai-clarified-theme {
+.#{$pref}.monokai-clarified-theme {
 	color: #eee;
 	// background-color: #333;
-	.#{$pref}__line .#{$pref}__line-number.error {
-		color: #fff; background-color: #e48;
-	}
 	.#{$pref}__line-text {
 		// .f_name      {color: #A3C266;}
 		.f_name      {color: #3bd;}
@@ -150,11 +132,8 @@ pre.#{$pref}.monokai-clarified-theme {
 	}
 }
 
-pre.#{$pref}.t1-theme {
+.#{$pref}.t1-theme {
 	color: #eee;
-	.#{$pref}__line .#{$pref}__line-number.error {
-		color: #fff; background-color: #e48;
-	}
 	.#{$pref}__line-text {
 		// .f_name      {color: #8d1;}
 		.f_name      {color: #3bd;}
@@ -176,18 +155,14 @@ pre.#{$pref}.t1-theme {
 	}
 }
 
-pre.#{$pref}.t2-theme {
+.#{$pref}.t2-theme {
 	color: #eee;
-	.#{$pref}__line .#{$pref}__line-number.error {
-		color: #fff; background-color: #e48;
-	}
 	.#{$pref}__line-text {
 		.string_v    {color: #fd8;}
 		.string_n    {color: #78a;}
 		.bool        {color: #98f;}
 		.number      {color: #f90;}
 		._null       {color: #98f;}
-		.error       {color: #fff; background-color: #e48; box-shadow: inset 0 0 2px #fff;}
 		.slashed     {color: #98f;}
 	}
 }

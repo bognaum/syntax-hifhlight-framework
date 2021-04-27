@@ -163,7 +163,7 @@ export default function HighlightAPI (mainRule, clPref="syntax-hl-fk") {
 	function setCSS() {
 		
 		const cssCode = `
-			.${clPref} {
+			.syntax-hl-fk {
 			  text-align: left;
 			  white-space: pre;
 			  background-color: #444;
@@ -174,14 +174,14 @@ export default function HighlightAPI (mainRule, clPref="syntax-hl-fk") {
 			  max-height: 500px;
 			  padding: 20px;
 			  font-family: consolas, monospace; }
-			  .${clPref} *::selection {
+			  .syntax-hl-fk *::selection {
 			    background-color: #000;
 			    background-color: rgba(120, 120, 120, 0.5); }
-			  .${clPref} .${clPref}__line {
+			  .syntax-hl-fk .syntax-hl-fk__line {
 			    margin-left: -20px; }
-			    .${clPref} .${clPref}__line > * {
+			    .syntax-hl-fk .syntax-hl-fk__line > * {
 			      display: table-cell; }
-			    .${clPref} .${clPref}__line .${clPref}__line-number {
+			    .syntax-hl-fk .syntax-hl-fk__line .syntax-hl-fk__line-number {
 			      width: 50px;
 			      min-width: 50px;
 			      max-width: 50px;
@@ -190,18 +190,26 @@ export default function HighlightAPI (mainRule, clPref="syntax-hl-fk") {
 			      padding-right: 10px;
 			      margin-right: 5px;
 			      transition: all .2s; }
-			      .${clPref} .${clPref}__line .${clPref}__line-number:before {
+			      .syntax-hl-fk .syntax-hl-fk__line .syntax-hl-fk__line-number:before {
 			        content: attr(data-line-number) ""; }
-			    .${clPref} .${clPref}__line .${clPref}__line-indent {
+			    .syntax-hl-fk .syntax-hl-fk__line span.syntax-hl-fk__line-number.error {
+			      color: #fff;
+			      background-color: #e48; }
+			    .syntax-hl-fk .syntax-hl-fk__line .syntax-hl-fk__line-indent {
 			      padding-left: 5px; }
-			    .${clPref} .${clPref}__line .${clPref}__line-text {
+			    .syntax-hl-fk .syntax-hl-fk__line .syntax-hl-fk__line-text {
 			      padding-left: 20px;
 			      white-space: pre-wrap;
 			      word-break: break-word; }
-			      .${clPref} .${clPref}__line .${clPref}__line-text:before {
+			      .syntax-hl-fk .syntax-hl-fk__line .syntax-hl-fk__line-text .error {
+			        color: #fff;
+			        background-color: #e48;
+			        box-shadow: inset 0 0 2px #fff; }
+			      .syntax-hl-fk .syntax-hl-fk__line .syntax-hl-fk__line-text:before {
 			        content: "";
 			        margin-left: -20px; }
-		`;
+
+		`.replace(/syntax-hl-fk/g, clPref);
 
 		const styleClassName = `${clPref}__base-style`;
 
