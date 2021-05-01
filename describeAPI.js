@@ -133,7 +133,7 @@ function q(callb, quanto, callb2=undefined) {
 		}
 	} else if (quanto == "+") {
 		_q_ = function _q_one_or_many_(pc) {
-			return callb(pc) && q(callb(pc), "*");
+			return callb(pc) && q(callb, "*")(pc);
 		}
 	} else if (quanto == "?") {
 		_q_ = function _q_zero_or_one_(pc) {
