@@ -42,7 +42,7 @@ const Analyzer_proto = {
 				return false;
 			}
 		}
-		insertProto(Analyzer_proto, _error_test_);
+		Object.setPrototypeOf(_error_test_, Analyzer_proto);
 		_error_test_.msg = function(msg) {
 			message = msg;
 			return this;
@@ -56,13 +56,15 @@ const Analyzer_proto = {
 				error(msg)
 			)(pc);
 		}
-		insertProto(Analyzer_proto, _wrong_);
+		Object.setPrototypeOf(_wrong_, Analyzer_proto);
 		return _wrong_;
 	},
 	deb : function (i0=0, i1=0) {
 		return deb(this, i0, i1);
 	},
 };
+
+Object.setPrototypeOf(Analyzer_proto, Function);
 
 function seq(...callbs) {
 	for (let [k, callb] of callbs.entries())
@@ -79,7 +81,7 @@ function seq(...callbs) {
 		pc.acceptHypo(hpc);
 		return true;
 	}
-	insertProto(Analyzer_proto, _seq_);
+	Object.setPrototypeOf(_seq_, Analyzer_proto);
 	return _seq_;
 }
 
@@ -95,7 +97,7 @@ function alter(...callbs) {
 		}
 		return false;
 	}
-	insertProto(Analyzer_proto, _alter_);
+	Object.setPrototypeOf(_alter_, Analyzer_proto);
 	return _alter_;
 }
 
@@ -158,7 +160,7 @@ function q(callb, quanto, callb2=undefined) {
 		console.error(`(!)`, `Invalid quantifier`, `'${quanto}'`); debugger; throw new Error();
 	}
 
-	insertProto(Analyzer_proto, _q_);
+	Object.setPrototypeOf(_q_, Analyzer_proto);
 	return _q_;
 }
 
@@ -173,7 +175,7 @@ function not(callb) {
 		} else 
 			return false;
 	}
-	insertProto(Analyzer_proto, _not_);
+	Object.setPrototypeOf(_not_, Analyzer_proto);
 	return _not_;
 }
 
@@ -194,7 +196,7 @@ function domain(name, callb, msg=null) {
 	_domain_.as = function(otherName, msg=null) {
 		return domain(otherName, callb);
 	}
-	insertProto(Analyzer_proto, _domain_);
+	Object.setPrototypeOf(_domain_, Analyzer_proto);
 	return _domain_;
 }
 
@@ -207,7 +209,7 @@ function rule(callb) {
 			pc.acceptHypo(hpc);
 		return !! status;
 	}
-	insertProto(Analyzer_proto, _rule_);
+	Object.setPrototypeOf(_rule_, Analyzer_proto);
 	return _rule_;
 }
 
@@ -215,7 +217,7 @@ function token(templ) {
 	const _token_ = function _token_(pc) {
 		return pc.match(templ);
 	}
-	insertProto(Analyzer_proto, _token_);
+	Object.setPrototypeOf(_token_, Analyzer_proto);
 	return _token_;
 }
 
@@ -223,7 +225,7 @@ function nToken(templ) {
 	const _notToken_ = function _notToken_(pc) {
 		return pc.notMatch(templ);
 	}
-	insertProto(Analyzer_proto, _notToken_);
+	Object.setPrototypeOf(_notToken_, Analyzer_proto);
 	return _notToken_;
 }
 
@@ -231,7 +233,7 @@ function spToken(templ) {
 	const _space_wrapped_token_ = function(pc) {
 		return seq(token(/\s+/y).q("*"), token(templ), token(/\s+/y).q("*"),)(pc);
 	}
-	insertProto(Analyzer_proto, _space_wrapped_token_);
+	Object.setPrototypeOf(_space_wrapped_token_, Analyzer_proto);
 	return _space_wrapped_token_;
 }
 
@@ -240,7 +242,7 @@ function spWrap(callb) {
 	const _space_wrapped_ = function(pc) {
 		return seq(token(/\s+/y).q("*"), callb, token(/\s+/y).q("*"),)(pc);
 	}
-	insertProto(Analyzer_proto, _space_wrapped_);
+	Object.setPrototypeOf(_space_wrapped_, Analyzer_proto);
 	return _space_wrapped_;
 }
 
@@ -251,7 +253,7 @@ function error(msg) {
 		domain("after-error", token(/\s+|\S+/y), msg).q("*")(pc);
 		return true;
 	}
-	insertProto(Analyzer_proto, _error_);
+	Object.setPrototypeOf(_error_, Analyzer_proto);
 	return _error_;
 }
 
@@ -259,7 +261,7 @@ function undefinedError(msg) {
 	const _undefined_error_ = function(pc) {
 		return error("Undefined error. "+msg)(pc);
 	}
-	insertProto(Analyzer_proto, _undefined_error_);
+	Object.setPrototypeOf(_undefined_error_, Analyzer_proto);
 	return _undefined_error_;
 }
 
@@ -275,12 +277,8 @@ function deb(callb, a=0, b=0) {
 			return res;
 		}
 	}
-	insertProto(Analyzer_proto, _deb_);
+	Object.setPrototypeOf(_deb_, Analyzer_proto);
 	return _deb_;
-}
-
-function insertProto(proto, ob) {
-	return Object.setPrototypeOf(ob, Object.setPrototypeOf(proto, Object.getPrototypeOf(ob)));
 }
 
 function chekToAnalyzer(fName, argN, callb) {
