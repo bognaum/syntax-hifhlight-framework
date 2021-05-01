@@ -23,16 +23,16 @@ const Analyzer_proto = {
 		return domain(name, this);
 	},
 	and : function (callb) {
-		chekToAnalyzer("q", 1, callb);
+		chekToAnalyzer("analyzer.and", 1, callb);
 		return seq(this, callb);
 	},
 	or : function (callb) {
-		chekToAnalyzer("q", 1, callb);
+		chekToAnalyzer("analyzer.or", 1, callb);
 		return alter(this, callb);
 	},
 	break : function (...args) {
 		for (let [k, callb] of args.entries())
-			chekToAnalyzer("seq", k + 1, callb);
+			chekToAnalyzer("analyzer.break", k + 1, callb);
 		let message = "";
 		const _error_test_ = (pc) => {
 			if(this(pc)) {
