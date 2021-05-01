@@ -34,7 +34,7 @@ const Analyzer_proto = {
 		for (let [k, callb] of args.entries())
 			chekToAnalyzer("analyzer.break", k + 1, callb);
 		let message = "";
-		const _error_test_ = (pc) => {
+		const _break_ = (pc) => {
 			if(this(pc)) {
 				seq(...args).or(undefinedError(message))(pc);
 				return true;
@@ -42,22 +42,22 @@ const Analyzer_proto = {
 				return false;
 			}
 		}
-		Object.setPrototypeOf(_error_test_, Analyzer_proto);
-		_error_test_.msg = function(msg) {
+		Object.setPrototypeOf(_break_, Analyzer_proto);
+		_break_.msg = function(msg) {
 			message = msg;
 			return this;
 		}
-		return _error_test_;
+		return _break_;
 	},
 	catch : function (msg) {
-		const _wrong_ = (pc) => {
+		const _catch_ = (pc) => {
 			return alter(
 				this,
 				error(msg)
 			)(pc);
 		}
-		Object.setPrototypeOf(_wrong_, Analyzer_proto);
-		return _wrong_;
+		Object.setPrototypeOf(_catch_, Analyzer_proto);
+		return _catch_;
 	},
 	deb : function (i0=0, i1=0) {
 		return deb(this, i0, i1);
