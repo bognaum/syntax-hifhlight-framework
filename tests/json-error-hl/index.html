@@ -184,6 +184,81 @@
 			jsonHl.scrollToFirstError  (pre_4);
 			jsonHl.highlightTextContent(pre_5);
 			jsonHl.scrollToFirstError  (pre_5);
+
+			document.querySelector("body .container").appendChild(
+				eHTML(`<h2>Inserted</h2>`)
+			);
+			var el = document.querySelector("body .container").appendChild(
+				jsonHl.getHighlighted(`
+					[
+						{
+							"name": "phpQuery",
+							"opened": true,
+							"capt": "Бизнес дистрибутив.",
+							"ch": [
+								{
+									"name": "phpQuery",
+									"opened": true,
+									"ch": [
+										{
+											"name": "compat",
+											"opened": false,
+											"ch": true
+										},
+										{
+											"name": "plugins",
+											"opened": false,
+											"ch": true
+										},
+										{
+											"name": "Zend",
+											"opened": false,
+											"khkjh" : ""
+										},
+										{
+											"name": "bootstrap.example.php"
+										},
+										{
+											"name": "Callback.php"
+										},
+										{
+											"name": "DOMDocumentWrapper.php"
+										},
+										{
+											"name": "DOMEvent.php"
+										},
+										{
+											"name": "phpQueryEvents.php"
+										},
+										{
+											"name": "phpQueryObject.php"
+										},
+										{
+											"sdbhjb"    :
+											"jnjncj"
+										},
+									]
+								},
+								{
+									"name": "phpQuery.php",
+									"capt": "Точка подключения."
+								}
+							]
+						}
+					]
+				`, 1, "calm-clarified-json-theme")
+			);
+			jsonHl.scrollToFirstError(el);
+
+			function eHTML(code, shell=null) {
+				const _shell = 
+					! shell                  ? document.createElement("div") :
+					typeof shell == "string" ? document.createElement(shell) :
+					typeof shell == "object" ? shell :
+						null;
+				_shell.innerHTML = code;
+				return _shell.children[0];
+			}
 		</script>
 	</div>
 </body>

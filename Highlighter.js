@@ -6,8 +6,25 @@ export default function HighlightAPI (mainRule, clPref="syntax-hl-fk") {
 	return {
 		highlight,            // (contentEl, text, firstLineNum=1)
 		highlightTextContent, // (el)
+		getHighlighted,       // (template, firstLineNum=1, sccClasses="")
 		setMainRule,          // (rule)
 		scrollToFirstError,   // (el)
+	}
+
+	function getHighlighted(template, firstLineNum=1, cssClasses="") {
+		const el = document.createElement("div");
+		if (typeof cssClasses == "string")
+			el.className += " " + cssClasses;
+		else if (cssClasses instanceof Array) 
+			el.classList.add(cssClasses);
+		else 
+			throw new Error(
+				"(!) - getHighlighted(). "+
+				"Argument #3 must be a string, an array, or undefined.\n"+
+				cssClasses+" givin"
+			);
+		highlight(el, template, firstLineNum);
+		return el;
 	}
 
 	function highlightTextContent(el) {
