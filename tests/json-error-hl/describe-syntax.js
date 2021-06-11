@@ -95,4 +95,16 @@ const
 		}),
 	};
 
-export default new SyntaxHlFk.Highlighter(__main_);
+	class JsonErrHlter extends SyntaxHlFk.Highlighter {
+		constructor (__main_, clPref) {
+			super(__main_, clPref);
+			// setStyle(clPref);
+		}
+
+		getHighlighted (
+			templ, firstLineNum=1, cssClasses="calm-clarified-json-theme") {
+			return super.getHighlighted(templ, firstLineNum, cssClasses);
+		}
+	}
+
+export default new JsonErrHlter(__main_);
