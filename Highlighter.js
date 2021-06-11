@@ -8,73 +8,79 @@ export default class HighlightAPI {
 		setCSS(this);
 	}
 
-	getHighlighted(template, firstLineNum=1, cssClasses="") {
-		const el = document.createElement("div");
-		if (typeof cssClasses == "string")
-			el.className += " " + cssClasses;
-		else if (cssClasses instanceof Array) 
-			el.classList.add(cssClasses);
-		else 
-			throw new Error(
-				"(!) - getHighlighted(). "+
-				"Argument #3 must be a string, an array, or undefined.\n"+
-				cssClasses+" givin"
-			);
-		this.highlight(el, template, firstLineNum);
-		return el;
-	}
+	getHighlighted       (...args) { return getHighlighted       (this, ...args); }
+	highlightTextContent (...args) { return highlightTextContent (this, ...args); }
+	scrollToFirstError   (...args) { return scrollToFirstError   (this, ...args); }
+	highlight            (...args) { return highlight            (this, ...args); }
+	setMainRule          (...args) { return setMainRule          (this, ...args); }
+}
 
-	highlightTextContent(el) {
-		return this.highlight(el, el.textContent, (el.dataset.lineNum*1 + 1) || 1);
-	}
 
-	scrollToFirstError(el) {
-		const errEl = el.querySelector(".error");
-		if (errEl) {
-			// errEl.scrollIntoView();
-			const 
-				top = errEl.getBoundingClientRect().top - el.getBoundingClientRect().top,
-				vpH = el.clientHeight,
-				deltaScroll = top - vpH / 2;
-			el.scrollTop = deltaScroll;
-		}
-	}
+function getHighlighted(self, template, firstLineNum=1, cssClasses="") {
+	const el = document.createElement("div");
+	if (typeof cssClasses == "string")
+		el.className += " " + cssClasses;
+	else if (cssClasses instanceof Array) 
+		el.classList.add(cssClasses);
+	else 
+		throw new Error(
+			"(!) - getHighlighted(). "+
+			"Argument #3 must be a string, an array, or undefined.\n"+
+			cssClasses+" givin"
+		);
+	self.highlight(el, template, firstLineNum);
+	return el;
+}
 
-	highlight(contentEl, text, firstLineNum=1) {
-		contentEl.classList.add(this.clPref);
-		if (["executing", "executed", "exec-error"].some((v) => contentEl.classList.contains(v)))
-			throw new Error("(!) Highlighter. Already handled.", contentEl);
-		
-		contentEl.classList.add("executing");
-		contentEl.innerHTML = "";
-		try {
-			const
-				model    = buildModel(this, text),
-				contents = renderToHighlight(this, model, firstLineNum);
-			contents.forEach((lineOb) => lineOb.appendTo(contentEl));
-			contentEl.classList.remove("executing");
-			contentEl.classList.add("executed");
-		} catch (e) {
-			console.error(`(!)-CATCHED`, e);
-			const lines = text.split("\n");
-			lines.forEach((line, i, a) => {
-				let lineOb = makeLine(firstLineNum + i);
-				let m = line.match(/^(\s*)(.*)/);
-				[lineOb.indent.textContent, lineOb.content.textContent] = [m[1], m[2]];
-				if (i < a.length - 1)
-					lineOb.setEol();
-				lineOb.appendTo(contentEl);
-			});
-			contentEl.classList.remove("executing");
-			contentEl.classList.add("exec-error");
-		}
-	}
+function highlightTextContent(self, el) {
+	return self.highlight(el, el.textContent, (el.dataset.lineNum*1 + 1) || 1);
+}
 
-	setMainRule(rule) {
-		this.mainRule = rule;
+function scrollToFirstError(self, el) {
+	const errEl = el.querySelector(".error");
+	if (errEl) {
+		// errEl.scrollIntoView();
+		const 
+			top = errEl.getBoundingClientRect().top - el.getBoundingClientRect().top,
+			vpH = el.clientHeight,
+			deltaScroll = top - vpH / 2;
+		el.scrollTop = deltaScroll;
 	}
 }
 
+function highlight(self, contentEl, text, firstLineNum=1) {
+	contentEl.classList.add(self.clPref);
+	if (["executing", "executed", "exec-error"].some((v) => contentEl.classList.contains(v)))
+		throw new Error("(!) Highlighter. Already handled.", contentEl);
+	
+	contentEl.classList.add("executing");
+	contentEl.innerHTML = "";
+	try {
+		const
+			model    = buildModel(self, text),
+			contents = renderToHighlight(self, model, firstLineNum);
+		contents.forEach((lineOb) => lineOb.appendTo(contentEl));
+		contentEl.classList.remove("executing");
+		contentEl.classList.add("executed");
+	} catch (e) {
+		console.error(`(!)-CATCHED`, e);
+		const lines = text.split("\n");
+		lines.forEach((line, i, a) => {
+			let lineOb = makeLine(firstLineNum + i);
+			let m = line.match(/^(\s*)(.*)/);
+			[lineOb.indent.textContent, lineOb.content.textContent] = [m[1], m[2]];
+			if (i < a.length - 1)
+				lineOb.setEol();
+			lineOb.appendTo(contentEl);
+		});
+		contentEl.classList.remove("executing");
+		contentEl.classList.add("exec-error");
+	}
+}
+
+function setMainRule(self, rule) {
+	self.mainRule = rule;
+}
 
 function buildModel(self, text) {
 	const mSlot = [];
