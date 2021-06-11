@@ -5,7 +5,7 @@ export default class HighlightAPI {
 	constructor (mainRule, clPref="syntax-hl-fk") {
 		this.mainRule = mainRule;
 		this.clPref   = clPref  ;
-		setCSS(this);
+		_setCSS(this);
 	}
 
 	getHighlighted       (...args) { return getHighlighted       (this, ...args); }
@@ -57,8 +57,8 @@ function highlight(self, contentEl, text, firstLineNum=1) {
 	contentEl.innerHTML = "";
 	try {
 		const
-			model    = buildModel(self, text),
-			contents = renderToHighlight(self, model, firstLineNum);
+			model    = _buildModel(self, text),
+			contents = _renderToHighlight(self, model, firstLineNum);
 		contents.forEach((lineOb) => lineOb.appendTo(contentEl));
 		contentEl.classList.remove("executing");
 		contentEl.classList.add("executed");
@@ -66,7 +66,7 @@ function highlight(self, contentEl, text, firstLineNum=1) {
 		console.error(`(!)-CATCHED`, e);
 		const lines = text.split("\n");
 		lines.forEach((line, i, a) => {
-			let lineOb = makeLine(firstLineNum + i);
+			let lineOb = _makeLine(firstLineNum + i);
 			let m = line.match(/^(\s*)(.*)/);
 			[lineOb.indent.textContent, lineOb.content.textContent] = [m[1], m[2]];
 			if (i < a.length - 1)
@@ -82,7 +82,7 @@ function setMainRule(self, rule) {
 	self.mainRule = rule;
 }
 
-function buildModel(self, text) {
+function _buildModel(self, text) {
 	const mSlot = [];
 	self.mainRule(new ParseContext({
 		text, 
@@ -93,11 +93,11 @@ function buildModel(self, text) {
 	return mSlot;
 }
 
-function renderToHighlight (self, model, firstLineNum=1) {
+function _renderToHighlight (self, model, firstLineNum=1) {
 	const content = [], nodeStack = [];
 	let lNum = firstLineNum, indentZoneFlag = true, lastLine;
 	nodeStack.last = () => nodeStack[nodeStack.length - 1];
-	content.push(lastLine = makeLine(lNum ++));
+	content.push(lastLine = _makeLine(lNum ++));
 	recur(model);
 	return content;
 	function recur(sb) {
@@ -113,7 +113,7 @@ function renderToHighlight (self, model, firstLineNum=1) {
 		} else if (typeof sb == "string") {
 			if (sb == "\n") {
 				lastLine.setEol();
-				content.push(lastLine = makeLine(self, lNum ++));
+				content.push(lastLine = _makeLine(self, lNum ++));
 				indentZoneFlag = true;
 			} else if (indentZoneFlag && sb.match(/^\s+$/)) {
 				lastLine.indent.innerHTML += sb;
@@ -133,7 +133,7 @@ function renderToHighlight (self, model, firstLineNum=1) {
 				const 
 					lastDomainNode = nodeStack.last(),
 					className = nodeStack.map(v => v.name).filter(v => v).join("- "),
-					el = evaluate(`<span class="${className || ""}"></span>`);
+					el = _evaluate(`<span class="${className || ""}"></span>`);
 				if (nodeStack.last()?.name == "error") {
 					lastLine.guter.classList.add("error");
 					lastLine.guter.title = nodeStack.last()?.msg;
@@ -166,10 +166,10 @@ function renderToHighlight (self, model, firstLineNum=1) {
 	}
 }
 
-function makeLine(self, num) {
+function _makeLine(self, num) {
 	return Object.setPrototypeOf(
 		{
-			line: evaluate(
+			line: _evaluate(
 				`<span class="${self.clPref}__line">`+
 					`<span class="${self.clPref}__line-number" data-line-number="${num}"></span>`+
 					`<span class="${self.clPref}__line-indent"></span>`+
@@ -187,12 +187,12 @@ function makeLine(self, num) {
 				if (this.eol)
 					parent.appendChild(this.eol);
 			},
-			setEol: function() {this.eol = evaluate(`<span>\n</span>`);}
+			setEol: function() {this.eol = _evaluate(`<span>\n</span>`);}
 		}
 	) 
 }
 
-function setCSS(self) {
+function _setCSS(self) {
 	
 	const cssCode = `
 		.syntax-hl-fk {
@@ -251,13 +251,13 @@ function setCSS(self) {
 	);
 
 	if (! styleAlreadyExists) {
-		const style = evaluate(`<style class="${styleClassName}"></style>`);
+		const style = _evaluate(`<style class="${styleClassName}"></style>`);
 		style.textContent = cssCode;
 		document.head.appendChild(style);
 	}
 }
 
-function evaluate (code) {
+function _evaluate (code) {
 	const shell = document.createElement("div");
 	shell.innerHTML = code;
 	return shell.children[0];
