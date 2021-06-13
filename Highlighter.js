@@ -74,7 +74,7 @@ function highlight(self, contentEl, text, firstLineNum=1) {
 		console.error(`(!)-CATCHED`, e);
 		const lines = text.split("\n");
 		lines.forEach((line, i, a) => {
-			let lineOb = _makeLine(firstLineNum + i);
+			let lineOb = _makeLine(self, firstLineNum + i);
 			let m = line.match(/^(\s*)(.*)/);
 			[lineOb.indent.textContent, lineOb.content.textContent] = [m[1], m[2]];
 			if (i < a.length - 1)
@@ -105,7 +105,7 @@ function _renderToHighlight (self, model, firstLineNum=1) {
 	const content = [], nodeStack = [];
 	let lNum = firstLineNum, indentZoneFlag = true, lastLine;
 	nodeStack.last = () => nodeStack[nodeStack.length - 1];
-	content.push(lastLine = _makeLine(lNum ++));
+	content.push(lastLine = _makeLine(self, lNum ++));
 	recur(model);
 	return content;
 	function recur(sb) {
