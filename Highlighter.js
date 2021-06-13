@@ -41,7 +41,7 @@ function getHighlighted(self, template, firstLineNum=1, cssClasses="") {
 }
 
 function highlightTextContent(self, el) {
-	return highlight(self, el, el.textContent, (el.dataset.lineNum*1 + 1) || 1);
+	return highlight(self, el, el.textContent, getFirstLineNum(el));
 }
 
 function scrollToFirstError(self, el) {
@@ -269,4 +269,15 @@ function _evaluate (code) {
 	const shell = document.createElement("div");
 	shell.innerHTML = code;
 	return shell.children[0];
+}
+
+
+function getFirstLineNum(el) {
+	const dln = parseInt(el.dataset.lineNum);
+	if (! dln)
+		return 1;
+	else if (el.nodeName == "PRE")
+		return dln + 1;
+	else 
+		return dln;
 }
