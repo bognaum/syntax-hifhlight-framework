@@ -36,12 +36,12 @@ function getHighlighted(self, template, firstLineNum=1, cssClasses="") {
 			"Argument #3 must be a string, an array, or undefined.\n"+
 			cssClasses+" givin"
 		);
-	self.highlight(el, template, firstLineNum);
+	highlight(self, el, template, firstLineNum);
 	return el;
 }
 
 function highlightTextContent(self, el) {
-	return self.highlight(el, el.textContent, (el.dataset.lineNum*1 + 1) || 1);
+	return highlight(self, el, el.textContent, (el.dataset.lineNum*1 + 1) || 1);
 }
 
 function scrollToFirstError(self, el) {
