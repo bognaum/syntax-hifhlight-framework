@@ -8,6 +8,14 @@ export default class HighlightAPI {
 		_setCSS(this);
 	}
 
+	/**
+	 * getHighlighted       (template, firstLineNum, cssClasses)
+	 * highlightTextContent (el)
+	 * scrollToFirstError   (el)
+	 * highlight            (el, template, firstLineNum)
+	 * setMainRule          (rule)
+	 */
+
 	getHighlighted       (...args) { return getHighlighted       (this, ...args); }
 	highlightTextContent (...args) { return highlightTextContent (this, ...args); }
 	scrollToFirstError   (...args) { return scrollToFirstError   (this, ...args); }
