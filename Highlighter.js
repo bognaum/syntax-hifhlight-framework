@@ -24,19 +24,21 @@ export default class HighlightAPI {
 }
 
 
-function getHighlighted(self, template, firstLineNum=1, cssClasses="") {
+function getHighlighted(self, text, firstLineNum=1, cssClasses="") {
 	const el = document.createElement("div");
 	if (typeof cssClasses == "string")
 		el.className += " " + cssClasses;
 	else if (cssClasses instanceof Array) 
-		el.classList.add(cssClasses);
+		el.classList.add(...cssClasses);
 	else 
-		throw new Error(
-			"(!) - getHighlighted(). "+
-			"Argument #3 must be a string, an array, or undefined.\n"+
-			cssClasses+" givin"
-		);
-	highlight(self, el, template, firstLineNum);
+		throw new Error([
+			"(!) getHighlighted(). ",
+			"Argument #3 must be a string, an array of strings, or undefined.",
+			"",
+			cssClasses+" given.",
+			""
+		].join("\n"));
+	highlight(self, el, text, firstLineNum);
 	return el;
 }
 
@@ -59,7 +61,7 @@ function scrollToFirstError(self, el) {
 function highlight(self, contentEl, text, firstLineNum=1) {
 	if (! (contentEl instanceof HTMLElement))
 		throw new Error([
-			"(!) Highlighter. Argument #1 must be a HTMLElement.",
+			"(!) highlight(). Argument #1 must be a HTMLElement.",
 			"",
 			contentEl + " given.",
 			""
@@ -75,10 +77,10 @@ function highlight(self, contentEl, text, firstLineNum=1) {
 	contentEl.classList.add(self.clPref);
 	contentEl.classList.add("executing");
 	contentEl.innerHTML = "";
-	
+
 	if (typeof text != "string")
 		throw new Error([
-			"(!) Highlighter. Argument #2 must be a string.",
+			"(!) highlight(). Argument #2 must be a string.",
 			"",
 			text + " given.",
 			""
