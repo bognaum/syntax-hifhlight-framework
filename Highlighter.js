@@ -57,12 +57,33 @@ function scrollToFirstError(self, el) {
 }
 
 function highlight(self, contentEl, text, firstLineNum=1) {
-	contentEl.classList.add(self.clPref);
+	if (! (contentEl instanceof HTMLElement))
+		throw new Error([
+			"(!) Highlighter. Argument #1 must be a HTMLElement.",
+			"",
+			contentEl + " given.",
+			""
+		].join("\n"));
+
 	if (["executing", "executed", "exec-error"].some((v) => contentEl.classList.contains(v)))
-		throw new Error("(!) Highlighter. Already handled.", contentEl);
+		throw new Error([
+			"(!) Highlighter. Already handled.", 
+			"",
+			contentEl
+		].join("\n"));
 	
+	contentEl.classList.add(self.clPref);
 	contentEl.classList.add("executing");
 	contentEl.innerHTML = "";
+	
+	if (typeof text != "string")
+		throw new Error([
+			"(!) Highlighter. Argument #2 must be a string.",
+			"",
+			text + " given.",
+			""
+		].join("\n"));
+
 	try {
 		const
 			model    = _buildModel(self, text),

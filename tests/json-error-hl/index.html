@@ -169,6 +169,25 @@
 				}
 			]
 		</pre>
+
+		<pre id="pre_6" class="syntax-hl-fk calm-clarified-json-theme" data-line-num="173">
+			[
+				{
+					"td": "Доменное имя",
+					"ch": [
+						{
+							"bd": "домен 3-го уровня",
+							"td": "Хост",
+							"ch": "mail"
+						},
+						{
+							"td": "",
+							"ch": "."
+						},
+					]
+				}
+			]
+		</pre>
 		<script type="module">
 			// import jsonHl from "./bundle-describe-syntax.js";
 			
@@ -187,6 +206,8 @@
 			jsonHl.scrollToFirstError  (pre_4);
 			jsonHl.highlightTextContent(pre_5);
 			jsonHl.scrollToFirstError  (pre_5);
+			jsonHl.highlight(pre_6, pre_6.textContent);
+			jsonHl.scrollToFirstError  (pre_6);
 
 			document.querySelector("body .container").appendChild(
 				eHTML(`<h2>Inserted</h2>`)
