@@ -38,14 +38,6 @@ export default class ParseContext {
 			this.monitor = this.i+ " : "+this.text.substr(this.i, 20);
 			return simbol;
 		}
-
-
-		const hpc = this.createHypo();
-		if (! hpc.match(templ)) {
-			this.match(this.text[this.i]);
-			return true;
-		} else
-			return false;
 	}
 	createHypo () {
 		const 
