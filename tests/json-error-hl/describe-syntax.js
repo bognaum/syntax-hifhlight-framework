@@ -60,7 +60,18 @@ const
 			return r.string(pc);
 		}),
 		slashed : domain("slashed", function(pc) {
-			return token(/\\[\\ntbu'"`]/y)(pc);
+			return token(
+				'\\"'         ,
+				"\\\\"        , 
+				"\\/"         , 
+				"\\b"         ,
+				"\\f"         ,
+				"\\n"         ,
+				"\\r"         ,
+				"\\t"         ,
+				/\\u\d\d\d\d/y,
+			)(pc);
+			// return token(/\\[\\ntbu'"`]/y)(pc);
 		}),
 		number          : domain("number", function(pc) {
 			return token(/\b\d+\.|\.\d+\b|\b\d+\.?\d*\b/y)(pc);
@@ -86,7 +97,7 @@ const
 		string        : rule(function(pc) {
 			return seq(
 				token('"'),
-				q(alter(d.slashed, nToken('"', "\n")), "*"),
+				q(alter(d.slashed, nToken('"', "\n", "\\")), "*"),
 				token('"'),
 			)(pc);
 		}),
