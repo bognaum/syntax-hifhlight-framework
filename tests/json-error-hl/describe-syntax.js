@@ -98,7 +98,7 @@ const
 			return seq(
 				token('"'),
 				q(alter(d.slashed, nToken('"', "\n", "\\")), "*"),
-				token('"'),
+				token('"').catch("String: invalid symbol"),
 			)(pc);
 		}),
 		space           : rule(function(pc) {
