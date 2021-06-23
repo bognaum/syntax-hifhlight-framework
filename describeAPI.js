@@ -213,9 +213,9 @@ function rule(callb) {
 	return _rule_;
 }
 
-function token(templ) {
+function token(...templs) {
 	const _token_ = function _token_(pc) {
-		return pc.match(templ);
+		return pc.match(...templs);
 	}
 	Object.setPrototypeOf(_token_, Analyzer_proto);
 	return _token_;
@@ -229,9 +229,9 @@ function nToken(...templs) {
 	return _notToken_;
 }
 
-function spToken(templ) {
+function spToken(...templs) {
 	const _space_wrapped_token_ = function(pc) {
-		return seq(token(/\s+/y).q("*"), token(templ), token(/\s+/y).q("*"),)(pc);
+		return seq(token(/\s+/y).q("*"), token(...templs), token(/\s+/y).q("*"),)(pc);
 	}
 	Object.setPrototypeOf(_space_wrapped_token_, Analyzer_proto);
 	return _space_wrapped_token_;

@@ -15,16 +15,17 @@ export default class ParseContext {
 		this.monitor = pc.monitor;
 		// this.debugDomain = pc.debugDomain;
 	}
-	match (templ) {
-		const {mSubstr, len} = this._getMatchSubstr(templ);
-
-		if (mSubstr) {
-			this.i += len;
-			push(this.mSlot, mSubstr);
-			this.monitor = this.i+ " : "+this.text.substr(this.i, 20)
-			return mSubstr;
-		} else
-			return "";
+	match (...templs) {
+		for (let t of templs) {
+			const {mSubstr, len} = this._getMatchSubstr(t);
+			if (mSubstr) {
+				this.i += len;
+				push(this.mSlot, mSubstr);
+				this.monitor = this.i+ " : "+this.text.substr(this.i, 20)
+				return mSubstr;
+			}
+		} 
+		return "";
 	}
 	notMatch (...templs) {
 		for (let t of templs) {
