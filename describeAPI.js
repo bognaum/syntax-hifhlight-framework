@@ -221,9 +221,9 @@ function token(templ) {
 	return _token_;
 }
 
-function nToken(templ) {
+function nToken(...templs) {
 	const _notToken_ = function _notToken_(pc) {
-		return pc.notMatch(templ);
+		return pc.notMatch(...templs);
 	}
 	Object.setPrototypeOf(_notToken_, Analyzer_proto);
 	return _notToken_;

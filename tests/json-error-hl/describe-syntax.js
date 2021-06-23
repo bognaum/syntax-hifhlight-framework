@@ -86,7 +86,7 @@ const
 		string        : rule(function(pc) {
 			return seq(
 				token('"'),
-				q(alter(d.slashed, nToken('"')), "*"),
+				q(alter(d.slashed, nToken('"', "\n")), "*"),
 				token('"'),
 			)(pc);
 		}),

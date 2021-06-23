@@ -26,18 +26,18 @@ export default class ParseContext {
 		} else
 			return "";
 	}
-	notMatch (templ) {
-		const {mSubstr, len} = this._getMatchSubstr(templ);
-
-		if (mSubstr) {
-			return false;
-		} else {
-			const simbol = this.text[this.i];
-			push(this.mSlot, simbol);
-			this.i += 1;
-			this.monitor = this.i+ " : "+this.text.substr(this.i, 20);
-			return simbol;
+	notMatch (...templs) {
+		for (let t of templs) {
+			const {mSubstr, len} = this._getMatchSubstr(t);
+			if (mSubstr) 
+				return false;
 		}
+
+		const simbol = this.text[this.i];
+		push(this.mSlot, simbol);
+		this.i += 1;
+		this.monitor = this.i+ " : "+this.text.substr(this.i, 20);
+		return simbol;
 	}
 	createHypo () {
 		const 
