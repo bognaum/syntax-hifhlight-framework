@@ -1,0 +1,27 @@
+{
+  "name": "syntax-highlight-framework",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12",
+    "sass": "^1.38.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bognaum/syntax-highlight-framework.git"
+  },
+  "author": "Bognaum",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bognaum/syntax-highlight-framework/issues"
+  },
+  "homepage": "https://github.com/bognaum/syntax-highlight-framework#readme"
+}
