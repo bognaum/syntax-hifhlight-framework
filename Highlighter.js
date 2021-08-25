@@ -1,11 +1,12 @@
 import ParseContext from "./ParseContext.js";
+import setCSS       from "./CSS/highlighter.scss.js";
 
 export default class HighlightAPI {
 
 	constructor (mainRule, clPref="syntax-hl-fk") {
 		this.mainRule = mainRule;
 		this.clPref   = clPref  ;
-		_setCSS(this);
+		setCSS(this.clPref);
 	}
 
 	/**
@@ -221,71 +222,6 @@ function _makeLine(self, num) {
 			setEol: function() {this.eol = _evaluate(`<span>\n</span>`);}
 		}
 	) 
-}
-
-function _setCSS(self) {
-	
-	const cssCode = `
-		.syntax-hl-fk {
-		  text-align: left;
-		  white-space: pre;
-		  background-color: #444;
-		  color: #ccc;
-		  -moz-tab-size: 4;
-		  tab-size: 4;
-		  overflow: auto;
-		  max-height: 500px;
-		  padding: 20px;
-		  font-family: consolas, monospace; }
-		  .syntax-hl-fk *::selection {
-		    background-color: #000;
-		    background-color: rgba(120, 120, 120, 0.5); }
-		  .syntax-hl-fk .syntax-hl-fk__line {
-		    margin-left: -20px; }
-		    .syntax-hl-fk .syntax-hl-fk__line > * {
-		      display: table-cell; }
-		    .syntax-hl-fk .syntax-hl-fk__line .syntax-hl-fk__line-number {
-		      width: 50px;
-		      min-width: 50px;
-		      max-width: 50px;
-		      text-align: right;
-		      background-color: #333;
-		      padding-right: 10px;
-		      margin-right: 5px;
-		      transition: all .2s; }
-		      .syntax-hl-fk .syntax-hl-fk__line .syntax-hl-fk__line-number:before {
-		        content: attr(data-line-number) ""; }
-		    .syntax-hl-fk .syntax-hl-fk__line span.syntax-hl-fk__line-number.error {
-		      color: #fff;
-		      background-color: #e48; }
-		    .syntax-hl-fk .syntax-hl-fk__line .syntax-hl-fk__line-indent {
-		      padding-left: 5px; }
-		    .syntax-hl-fk .syntax-hl-fk__line .syntax-hl-fk__line-text {
-		      padding-left: 20px;
-		      white-space: pre-wrap;
-		      word-break: break-word; }
-		      .syntax-hl-fk .syntax-hl-fk__line .syntax-hl-fk__line-text .error {
-		        color: #fff;
-		        background-color: #e48;
-		        box-shadow: inset 0 0 2px #fff; }
-		      .syntax-hl-fk .syntax-hl-fk__line .syntax-hl-fk__line-text:before {
-		        content: "";
-		        margin-left: -20px; }
-
-	`.replace(/syntax-hl-fk/g, self.clPref);
-
-	const styleClassName = `${self.clPref}__base-style`;
-
-	const styleAlreadyExists = [].some.call(
-		document.querySelectorAll(`style.${styleClassName}`), 
-		(v) => v.textContent === cssCode
-	);
-
-	if (! styleAlreadyExists) {
-		const style = _evaluate(`<style class="${styleClassName}"></style>`);
-		style.textContent = cssCode;
-		document.head.appendChild(style);
-	}
 }
 
 function _evaluate (code) {

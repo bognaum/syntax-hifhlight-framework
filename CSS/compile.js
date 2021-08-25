@@ -10,7 +10,7 @@ const
 const 
 	compOb = sass$.renderSync({
 		file: "./highlighter.scss",
-		outFile: './highlighter.css',
+		outFile: './highlighter.css', // ???
 		sourceMap: true,
 		sourceMapEmbed: true,
 	}),
@@ -18,7 +18,7 @@ const
 	mapCode = compOb.map?.toString(),
 	prretifiedMap = mapCode? JSON.stringify(JSON.parse(mapCode), null, 4) : null,
 	templ = fs$.readFileSync([__dirname, "template.js"].join(pSep)).toString(),
-	resultCode = templ.replace("-xxx-inserting-tag-xxx-", "\n\n"+cssCode+"\n\n");
+	resultCode = templ.replace("-xxx-inserting-tag-xxx-", ""+cssCode+"");
 
 console.log(`prretifiedMap :`, prretifiedMap);
 
