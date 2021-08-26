@@ -5,23 +5,25 @@ const
 
 const 
 	filename = "./highlighter.scss",
+	outFile  = "./highlighter.css",
 	pSep = path$.sep;
 
 const 
 	compOb = sass$.renderSync({
 		file: "./highlighter.scss",
-		outFile: './highlighter.css', // ???
+		outFile, // Без этого не создаётся source map.
 		sourceMap: true,
 		sourceMapEmbed: true,
 	}),
 	cssCode = compOb.css.toString(),
-	mapCode = compOb.map?.toString(),
-	prretifiedMap = mapCode? JSON.stringify(JSON.parse(mapCode), null, 4) : null,
+	// mapCode = compOb.map?.toString(),
+	// prretifiedMap = mapCode? JSON.stringify(JSON.parse(mapCode), null, 4) : null,
 	templ = fs$.readFileSync([__dirname, "template.js"].join(pSep)).toString(),
 	resultCode = templ.replace("-xxx-inserting-tag-xxx-", ""+cssCode+"");
 
-console.log(`prretifiedMap :`, prretifiedMap);
+// console.log(`prretifiedMap :`, prretifiedMap);
 
 fs$.writeFileSync([__dirname, filename+".js"].join(pSep), resultCode);
+console.log("OK");
 
 // setInterval(() => {},1000);
