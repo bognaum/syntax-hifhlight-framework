@@ -4,9 +4,10 @@ const
 	path$ = require("path");
 
 const 
-	scssPathName = path$.resolve(__dirname, "highlighter.scss"),
-	jsTemplate   = path$.resolve(__dirname, "template.js"),
-	outFile      = "highlighter.scss.js"; // Без этого не создаётся source map.
+	scssPathName   = path$.resolve(__dirname, "highlighter.scss"),
+	jsTemplate     = path$.resolve(__dirname, "template.js"),
+	outputPathName = scssPathName + ".js",
+	outFile        = "highlighter.scss.js"; // Без этого не создаётся source map.
 
 const 
 	compOb = sass$.renderSync({
@@ -23,7 +24,7 @@ const
 
 // console.log(`prretifiedMap :`, prretifiedMap);
 
-fs$.writeFileSync(scssPathName+".js", resultCode);
+fs$.writeFileSync(outputPathName, resultCode);
 console.log("OK");
 
 // setInterval(() => {},1000);
