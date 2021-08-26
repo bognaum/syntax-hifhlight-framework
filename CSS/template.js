@@ -1,6 +1,6 @@
 export default function setStyle(clPref) {
 
-	const cssCode = `-xxx-inserting-tag-xxx-`.replaceAll(/json-err-hl/g, clPref);
+	const cssCode = `-xxx-inserting-tag-xxx-`.replaceAll(/syntax-hl-fk/g, clPref);
 
 	const styleClassName = `${clPref}__theme-style`;
 
